@@ -1,0 +1,8 @@
+[
+  {
+    "type": "ammunition_type",
+    "id": "thermite",
+    "name": "thermite",
+    "default": "chem_thermite"
+  }
+]

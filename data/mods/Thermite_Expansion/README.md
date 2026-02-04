@@ -1,20 +1,31 @@
 # Thermite Expansion Mod
 
-This mod expands the uses of thermic lances in Cataclysm: Bright Nights to include non-welding operations.
+This mod adds thermite-based items and expands their uses in Cataclysm: Bright Nights.
 
-## What This Mod Does
+## What This Mod Adds
 
-Thermic lances are now viable alternatives for various crafting operations that require high heat:
+### New Items:
+- **Thermite Chemical** (`chem_thermite`): A silvery-greenish powder made from aluminum and chromium oxide that burns at extremely high temperatures
+- **Thermite Grenade** (`grenade_thermite`): A hand grenade filled with thermite for intense thermal blasts
+- **Thermic Lance** (`thermic_lance`): A compact thermal cutting tool that burns thermite to cut through metal
 
-### Added Uses:
-- **Forging** (`forging_standard`): Thermic lances can now be used for heating and melting metal during forging operations
-- **Blacksmithing** (`blacksmithing_standard`): Use thermic lances for basic blacksmithing tasks
-- **Metal Removal** (`metal_removal_standard`): Cut through metal and rebar using thermic lances
-- **Glassblowing** (`glassblowing_easy` and `glassblowing_standard`): Melt glass using thermic lances
+### New Recipes:
+- **Thermite Chemical**: Craft from aluminum powder and chromium oxide
+- **Thermite Grenade**: Craft from thermite, delay fuse, and a canister
+- **Thermic Lance**: Craft from oxygen tank, hose, pipe, and pilot light
+- **Incendiary Rocket (Thermite)**: Alternative recipe for incendiary rockets using thermite
 
-## Balance Changes
+### Expanded Tool Uses:
+Thermic lances can now be used as alternatives for various crafting operations that require high heat:
 
-Thermic lances require less charges than forges (10 vs 20) or are equal to oxy torches, making them an efficient but consumable option for these operations. For glassblowing, they require 5 charges, the same as forges and oxy torches.
+- **Forging** (`forging_standard`): Use thermic lances for heating/melting metal (10 charges vs 20 for forge)
+- **Blacksmithing** (`blacksmithing_standard`): Basic blacksmithing with thermic lances (10 charges)
+- **Metal Removal** (`metal_removal_standard`): Cut through metal and rebar (10 charges)
+- **Glassblowing** (`glassblowing_easy` and `glassblowing_standard`): Melt glass for glassblowing (5 charges)
+
+## Balance
+
+Thermic lances require fewer charges than forges (10 vs 20) or match oxy torches, making them an efficient but consumable option for these operations. For glassblowing, they require 5 charges, the same as forges and oxy torches.
 
 ## Compatibility
 
@@ -30,3 +41,4 @@ It should be compatible with most other mods unless they also modify these speci
 ## Installation
 
 This mod is included in the game's mod directory. Simply enable it in the mod selection menu when starting a new world.
+

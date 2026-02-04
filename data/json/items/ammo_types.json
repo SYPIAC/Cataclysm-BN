@@ -350,12 +350,6 @@
   },
   {
     "type": "ammunition_type",
-    "id": "thermite",
-    "name": "thermite",
-    "default": "chem_thermite"
-  },
-  {
-    "type": "ammunition_type",
     "id": "conc_alcohol",
     "name": "concentrated alcohol",
     "default": "denat_alcohol"
