@@ -11,6 +11,7 @@
 #include "enums.h"
 #include "flat_set.h"
 #include "om_direction.h"
+#include "surroundings_menu.h"
 #include "type_id.h"
 
 class item;
@@ -121,10 +122,15 @@ class uistatedata
         std::string list_item_filter;
         std::string list_item_downvote;
         std::string list_item_priority;
+        std::string monster_filter;
+        std::string terfurn_filter;
+        surroundings_menu_tab_enum vmenu_tab = surroundings_menu_tab_enum::items;
         bool vmenu_show_items = true; // false implies show monsters
         bool list_item_filter_active = false;
         bool list_item_downvote_active = false;
         bool list_item_priority_active = false;
+        bool list_monster_filter_active = false;
+        bool list_terfurn_filter_active = false;
         bool list_item_init = false;
 
         // construction menu selections

@@ -4380,12 +4380,14 @@ void uistatedata::serialize( JsonOut &json ) const
     json.member( "overmap_show_hordes", overmap_show_hordes );
     json.member( "overmap_show_forest_trails", overmap_show_forest_trails );
     json.member( "overmap_highlighted_omts", overmap_highlighted_omts );
-    json.member( "vmenu_show_items", vmenu_show_items );
+    json.member( "vmenu_tab", vmenu_tab );
     json.member( "list_item_sort", list_item_sort );
     json.member( "read_items", read_items );
     json.member( "list_item_filter_active", list_item_filter_active );
     json.member( "list_item_downvote_active", list_item_downvote_active );
     json.member( "list_item_priority_active", list_item_priority_active );
+    json.member( "list_monster_filter_active", list_monster_filter_active );
+    json.member( "list_terfurn_filter_active", list_terfurn_filter_active );
     json.member( "hidden_recipes", hidden_recipes );
     json.member( "favorite_recipes", favorite_recipes );
     json.member( "read_recipes", read_recipes );
@@ -4438,6 +4440,7 @@ void uistatedata::deserialize( const JsonObject &jo )
     jo.read( "overmap_show_hordes", overmap_show_hordes );
     jo.read( "overmap_show_forest_trails", overmap_show_forest_trails );
     jo.read( "overmap_highlighted_omts", overmap_highlighted_omts );
+    jo.read( "vmenu_tab", vmenu_tab );
     jo.read( "hidden_recipes", hidden_recipes );
     jo.read( "favorite_recipes", favorite_recipes );
     jo.read( "read_recipes", read_recipes );
@@ -4460,6 +4463,8 @@ void uistatedata::deserialize( const JsonObject &jo )
     jo.read( "list_item_filter_active", list_item_filter_active );
     jo.read( "list_item_downvote_active", list_item_downvote_active );
     jo.read( "list_item_priority_active", list_item_priority_active );
+    jo.read( "list_monster_filter_active", list_monster_filter_active );
+    jo.read( "list_terfurn_filter_active", list_terfurn_filter_active );
 
     for( const JsonMember member : jo.get_object( "input_history" ) ) {
         std::vector<std::string> &v = gethistory( member.name() );
@@ -4477,5 +4482,11 @@ void uistatedata::deserialize( const JsonObject &jo )
     }
     if( !gethistory( "list_item_priority" ).empty() ) {
         list_item_priority = gethistory( "list_item_priority" ).back();
+    }
+    if( !gethistory( "monster_filter" ).empty() ) {
+        monster_filter = gethistory( "monster_filter" ).back();
+    }
+    if( !gethistory( "terfurn_filter" ).empty() ) {
+        terfurn_filter = gethistory( "terfurn_filter" ).back();
     }
 }

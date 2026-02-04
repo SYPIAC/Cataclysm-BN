@@ -2064,7 +2064,7 @@ bool game::handle_action()
                 break;
 
             case ACTION_LIST_ITEMS:
-                list_items_monsters();
+                list_surroundings();
                 break;
 
             case ACTION_ZONES:

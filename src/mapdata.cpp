@@ -1285,6 +1285,12 @@ std::string enum_to_string<season_type>( season_type data )
 }
 } // namespace io
 
+
+bool map_data_common_t::is_terrain() const
+{
+    return false;
+}
+
 void map_data_common_t::load( const JsonObject &jo, const std::string &src )
 {
     if( jo.has_member( "examine_action" ) ) {
@@ -1336,6 +1342,11 @@ void map_data_common_t::load( const JsonObject &jo, const std::string &src )
 bool ter_t::is_null() const
 {
     return id == ter_str_id::NULL_ID();
+}
+
+bool ter_t::is_terrain() const
+{
+    return true;
 }
 
 bool ter_t::is_diggable() const

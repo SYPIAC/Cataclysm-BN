@@ -168,6 +168,7 @@
 #include "string_id.h"
 #include "string_input_popup.h"
 #include "submap.h"
+#include "surroundings_menu.h"
 #include "type_id.h"
 #include "tileray.h"
 #include "timed_event.h"
@@ -7263,7 +7264,7 @@ look_around_result game::look_around( bool show_window, tripoint &center,
         }
         ( void ) zone_blink; // kept for callback signature
         if( action == "LIST_ITEMS" ) {
-            list_items_monsters();
+            list_surroundings();
         } else if( action == "TOGGLE_FAST_SCROLL" ) {
             fast_scroll = !fast_scroll;
         } else if( action == "toggle_pixel_minimap" ) {
@@ -8096,29 +8097,17 @@ static auto list_vehicles( const vehicle_list_t &vehicle_list ) -> vehicle_menu_
     return vehicle_menu_ret::QUIT;
 }
 
-void game::list_items_monsters()
+void game::list_surroundings()
 {
-    static int vmenu_tab = [] {
-        return uistate.vmenu_show_items ? 0 : 1;
-    }();
-
-    avatar &viewer = get_avatar();
-    map &here = get_map();
-
-    std::vector<Creature *> mons = u.get_visible_creatures( current_daylight_level( calendar::turn ) );
-    // whole reality bubble
-    const std::vector<map_item_stack> items = find_nearby_items( 60 );
-    const vehicle_list_t vehicles = find_visible_vehicles( viewer, here, 60 );
-
-    if( mons.empty() && items.empty() && vehicles.empty() ) {
-        add_msg( m_info, _( "You don't see any items, monsters, or vehicles around you!" ) );
-        return;
-    }
+    // Search whole reality bubble because each function internally verifies
+    // the visibility of the items / monsters in question.
+    std::vector<Creature *> mons = u.get_visible_creatures( MAX_VIEW_DISTANCE );
+    const std::vector<map_item_stack> items = find_nearby_items( MAX_VIEW_DISTANCE );
 
     std::sort( mons.begin(), mons.end(), [&]( const Creature * lhs, const Creature * rhs ) {
         if( !u.has_trait( trait_INATTENTIVE ) ) {
-            const auto att_lhs = lhs->attitude_to( u );
-            const auto att_rhs = rhs->attitude_to( u );
+            const Creature::Attitude att_lhs = lhs->attitude_to( u );
+            const Creature::Attitude att_rhs = rhs->attitude_to( u );
 
             return att_lhs < att_rhs || ( att_lhs == att_rhs
                                           && rl_dist( u.pos(), lhs->pos() ) < rl_dist( u.pos(), rhs->pos() ) );
@@ -8127,60 +8116,23 @@ void game::list_items_monsters()
         }
     } );
 
-    const auto tab_empty = [&]( int tab ) {
-        if( tab == 0 ) {
-            return items.empty();
-        } else if( tab == 1 ) {
-            return mons.empty();
+    // If the current list is empty, switch to the non-empty list
+    // todo: update tab selection
+    if( uistate.vmenu_show_items ) {
+        if( items.empty() ) {
+            uistate.vmenu_show_items = false;
         }
-        return vehicles.empty();
-    };
-
-    if( vmenu_tab < 0 || vmenu_tab > 2 ) {
-        vmenu_tab = 0;
-    }
-    if( tab_empty( vmenu_tab ) ) {
-        for( int tab = 0; tab < 3; ++tab ) {
-            if( !tab_empty( tab ) ) {
-                vmenu_tab = tab;
-                break;
-            }
-        }
+    } else if( mons.empty() ) {
+        uistate.vmenu_show_items = true;
     }
 
     temp_exit_fullscreen();
-    game::vmenu_ret ret;
-    while( true ) {
-        if( vmenu_tab == 0 ) {
-            ret = list_items( items );
-        } else if( vmenu_tab == 1 ) {
-            ret = list_monsters( mons );
-        } else {
-            ret = list_vehicles( vehicles ) == vehicle_menu_ret::CHANGE_TAB ?
-                  game::vmenu_ret::CHANGE_TAB : game::vmenu_ret::QUIT;
-        }
-        if( ret == game::vmenu_ret::CHANGE_TAB ) {
-            int next_tab = vmenu_tab;
-            for( int i = 0; i < 3; ++i ) {
-                next_tab = ( next_tab + vmenu_tab_delta + 3 ) % 3;
-                if( !tab_empty( next_tab ) ) {
-                    vmenu_tab = next_tab;
-                    break;
-                }
-            }
-            if( vmenu_tab == 0 ) {
-                uistate.vmenu_show_items = true;
-            } else if( vmenu_tab == 1 ) {
-                uistate.vmenu_show_items = false;
-            }
-        } else {
-            break;
-        }
-    }
-
-    if( ret == game::vmenu_ret::FIRE ) {
-        avatar_action::fire_wielded_weapon( u );
-    }
+    std::optional<tripoint_bub_ms> path_start = u.pos_bub();
+    std::optional<tripoint_bub_ms> path_end = std::nullopt;
+    surroundings_menu vmenu( u, m, path_end, 55 );
+    shared_ptr_fast<draw_callback_t> trail_cb = create_trail_callback( path_start, path_end, true );
+    add_draw_callback( trail_cb );
+    vmenu.execute();
     reenter_fullscreen();
 }
 

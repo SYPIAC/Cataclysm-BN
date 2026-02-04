@@ -534,6 +534,8 @@ struct map_data_common_t {
 
         bool was_loaded = false;
 
+        virtual bool is_terrain() const;
+
         virtual void load( const JsonObject &jo, const std::string &src );
         virtual void check() const;
 };
@@ -576,6 +578,7 @@ struct ter_t : map_data_common_t {
     static size_t count();
 
     bool is_null() const;
+    bool is_terrain() const override;
 
     void load( const JsonObject &jo, const std::string &src ) override;
     void check() const override;

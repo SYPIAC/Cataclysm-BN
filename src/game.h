@@ -753,7 +753,7 @@ class game
             int max_distance, const std::vector<std::string> &omt_search_types = {},
             bool notwater = false );
         // V Menu Functions and helpers:
-        void list_items_monsters(); // Called when you invoke the `V`-menu
+        void list_surroundings(); // Called when you invoke the `V`-menu
 
         enum class vmenu_ret : int {
             CHANGE_TAB,

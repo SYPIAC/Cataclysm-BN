@@ -1825,7 +1825,7 @@
   },
   {
     "type": "keybinding",
-    "name": "List all items around the player",
+    "name": "List nearby items, monsters, terrain and furniture",
     "category": "DEFAULTMODE",
     "id": "listitems",
     "bindings": [ { "input_method": "keyboard", "key": "V" } ]
@@ -2515,7 +2515,7 @@
   {
     "type": "keybinding",
     "id": "COMPARE",
-    "category": "LIST_ITEMS",
+    "category": "LIST_SURROUNDINGS",
     "name": "Compare",
     "bindings": [
       { "input_method": "keyboard", "key": "I" },
@@ -2526,56 +2526,66 @@
   {
     "type": "keybinding",
     "id": "EXAMINE",
-    "category": "LIST_ITEMS",
+    "category": "LIST_SURROUNDINGS",
     "name": "Examine",
     "bindings": [ { "input_method": "keyboard", "key": "e" }, { "input_method": "keyboard", "key": "E" } ]
   },
   {
     "type": "keybinding",
     "id": "PRIORITY_INCREASE",
-    "category": "LIST_ITEMS",
+    "category": "LIST_SURROUNDINGS",
     "name": "Increase priority",
     "bindings": [ { "input_method": "keyboard", "key": "+" } ]
   },
   {
     "type": "keybinding",
     "id": "PRIORITY_DECREASE",
-    "category": "LIST_ITEMS",
+    "category": "LIST_SURROUNDINGS",
     "name": "Decrease priority",
     "bindings": [ { "input_method": "keyboard", "key": "-" } ]
   },
   {
     "type": "keybinding",
     "id": "SORT",
-    "category": "LIST_ITEMS",
+    "category": "LIST_SURROUNDINGS",
     "name": "Change sort order",
     "bindings": [ { "input_method": "keyboard", "key": "s" }, { "input_method": "keyboard", "key": "S" } ]
   },
   {
     "type": "keybinding",
+    "id": "FILTER_MONSTERS",
+    "category": "LIST_SURROUNDINGS",
+    "name": "Filter monsters",
+    "bindings": [
+      { "input_method": "keyboard", "key": "F" },
+      { "input_method": "keyboard", "key": "/" }
+    ]
+  },
+  {
+    "type": "keybinding",
     "id": "SAFEMODE_BLACKLIST_ADD",
-    "category": "LIST_MONSTERS",
+    "category": "LIST_SURROUNDINGS",
     "name": "Add to safemode blacklist",
     "bindings": [ { "input_method": "keyboard", "key": "a" } ]
   },
   {
     "type": "keybinding",
     "id": "SAFEMODE_BLACKLIST_REMOVE",
-    "category": "LIST_MONSTERS",
+    "category": "LIST_SURROUNDINGS",
     "name": "Remove from safemode blacklist",
-    "bindings": [ { "input_method": "keyboard", "key": "r" } ]
+    "bindings": [ { "input_method": "keyboard", "key": "b" } ]
   },
   {
     "type": "keybinding",
     "id": "look",
-    "category": "LIST_MONSTERS",
+    "category": "LIST_SURROUNDINGS",
     "name": "look around",
     "bindings": [ { "input_method": "keyboard", "key": "x" } ]
   },
   {
     "type": "keybinding",
     "id": "fire",
-    "category": "LIST_MONSTERS",
+    "category": "LIST_SURROUNDINGS",
     "name": { "ctxt": "verb", "str": "fire" },
     "bindings": [ { "input_method": "keyboard", "key": "f" } ]
   },
@@ -2583,7 +2593,7 @@
     "type": "keybinding",
     "id": "LIST_ITEMS",
     "category": "LOOK",
-    "name": "List items and monsters",
+    "name": "List nearby items, monsters, terrain and furniture",
     "bindings": [ { "input_method": "keyboard", "key": "V" } ]
   },
   {
