@@ -8127,11 +8127,10 @@ void game::list_surroundings()
     }
 
     temp_exit_fullscreen();
-    std::optional<tripoint_bub_ms> path_start = u.pos_bub();
-    std::optional<tripoint_bub_ms> path_end = std::nullopt;
+    // TODO: BN Port - This currently just shows a message
+    // Need to implement surroundings menu for curses or wait for imgui port
+    std::optional<tripoint_abs_ms> path_end = std::nullopt;
     surroundings_menu vmenu( u, m, path_end, 55 );
-    shared_ptr_fast<draw_callback_t> trail_cb = create_trail_callback( path_start, path_end, true );
-    add_draw_callback( trail_cb );
     vmenu.execute();
     reenter_fullscreen();
 }
