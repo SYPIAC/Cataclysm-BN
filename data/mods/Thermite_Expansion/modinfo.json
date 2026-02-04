@@ -1,0 +1,11 @@
+[
+  {
+    "type": "MOD_INFO",
+    "id": "Thermite_Expansion",
+    "name": "Thermite Expansion",
+    "authors": [ "SYPIAC" ],
+    "description": "Adds thermite-based items (thermite chemical, thermite grenades, thermic lances) and expands their uses for non-welding operations like forging, blacksmithing, metal removal, and glassblowing. Thermic lances can be used as alternatives to forges and oxy torches for heating and melting operations.",
+    "category": "rebalance",
+    "dependencies": [ "bn" ]
+  }
+]

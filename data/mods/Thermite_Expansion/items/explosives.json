@@ -1,0 +1,44 @@
+[
+  {
+    "id": "grenade_thermite",
+    "copy-from": "grenade_inc",
+    "type": "TOOL",
+    "name": { "str": "thermite grenade" },
+    "looks_like": "grenade_inc",
+    "description": "This is a thermite-filled hand grenade.  Use this item to pull the pin and light the fuse.  You will then have five turns before it detonates in a tight burst of intense heat; throwing it would be a good idea.",
+    "use_action": {
+      "target": "grenade_thermite_act",
+      "msg": "You pull the pin on the grenade.",
+      "target_charges": 5,
+      "active": true,
+      "menu_text": "Pull pin",
+      "type": "transform"
+    }
+  },
+  {
+    "id": "grenade_thermite_act",
+    "copy-from": "grenade_inc_act",
+    "type": "TOOL",
+    "name": { "str": "active thermite grenade" },
+    "looks_like": "grenade_inc_act",
+    "description": "This is an active thermite grenade, likely to burst into an intense thermal blast any second now.  Better throw it!",
+    "use_action": {
+      "type": "explosion",
+      "sound_volume": 0,
+      "sound_msg": "Tick.",
+      "no_deactivate_msg": "You've already released the handle, try throwing it instead.",
+      "explosion": {
+        "damage": 15,
+        "radius": 1,
+        "fragment": {
+          "impact": { "damage_type": "heat", "amount": 40, "armor_multiplier": 0.5 },
+          "range": 1
+        }
+      },
+      "fields_type": "fd_incendiary",
+      "fields_radius": 1,
+      "fields_min_intensity": 3,
+      "fields_max_intensity": 3
+    }
+  }
+]
