@@ -283,6 +283,7 @@
       { "item": "peephole", "prob": 25 },
       { "item": "magnifying_glass", "prob": 5 },
       { "item": "chem_chromium_oxide", "prob": 5 },
+      { "item": "chem_thermite", "prob": 10 },
       { "item": "polisher", "prob": 20 },
       { "item": "screwdriver", "prob": 40 },
       { "item": "hammer", "prob": 35 },

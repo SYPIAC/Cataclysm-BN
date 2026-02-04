@@ -361,7 +361,7 @@
     "tools": [ [ [ "hotplate", 50 ], [ "toolset", 50 ] ] ],
     "components": [
       [ [ "pipe", 2 ] ],
-      [ [ "napalm", 50 ] ],
+      [ [ "chem_thermite", 50 ] ],
       [ [ "plastic_chunk", 5 ] ],
       [ [ "tool_rocket_candy", 2 ], [ "chem_rocket_fuel", 10 ] ]
     ]
