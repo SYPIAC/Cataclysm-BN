@@ -1,0 +1,11 @@
+[
+  {
+    "type": "MOD_INFO",
+    "id": "Thermite_Expansion",
+    "name": "Thermite Expansion",
+    "authors": [ "SYPIAC" ],
+    "description": "Expands the uses of thermic lances to include non-welding operations like forging, blacksmithing, metal removal, and glassblowing. Thermic lances can now be used as alternatives to forges and oxy torches for heating and melting operations.",
+    "category": "rebalance",
+    "dependencies": [ "bn" ]
+  }
+]
