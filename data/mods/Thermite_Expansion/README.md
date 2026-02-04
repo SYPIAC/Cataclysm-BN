@@ -1,16 +1,27 @@
 # Thermite Expansion Mod
 
-This mod expands the uses of thermic lances in Cataclysm: Bright Nights to include non-welding operations.
+This mod adds thermite-based items and expands their uses in Cataclysm: Bright Nights.
 
-## What This Mod Does
+## What This Mod Adds
 
-Thermic lances (already present in the base game) can now be used as alternatives for various crafting operations that require high heat:
+### New Items:
+- **Thermite Chemical** (`chem_thermite`): A silvery-greenish powder made from aluminum and chromium oxide that burns at extremely high temperatures
+- **Thermite Grenade** (`grenade_thermite`): A hand grenade filled with thermite for intense thermal blasts
+- **Thermic Lance** (`thermic_lance`): A compact thermal cutting tool that burns thermite to cut through metal
+
+### New Recipes:
+- **Thermite Chemical**: Craft from aluminum powder and chromium oxide
+- **Thermite Grenade**: Craft from thermite, delay fuse, and a canister
+- **Thermic Lance**: Craft from oxygen tank, hose, pipe, and pilot light
+- **Incendiary Rocket (Thermite)**: Alternative recipe for incendiary rockets using thermite
 
 ### Expanded Tool Uses:
-- **Forging** (`forging_standard`): Thermic lances can be used for heating and melting metal during forging operations (10 charges vs 20 for forge)
-- **Blacksmithing** (`blacksmithing_standard`): Use thermic lances for basic blacksmithing tasks (10 charges)
-- **Metal Removal** (`metal_removal_standard`): Cut through metal and rebar using thermic lances (10 charges)
-- **Glassblowing** (`glassblowing_easy` and `glassblowing_standard`): Melt glass using thermic lances (5 charges)
+Thermic lances can now be used as alternatives for various crafting operations that require high heat:
+
+- **Forging** (`forging_standard`): Use thermic lances for heating/melting metal (10 charges vs 20 for forge)
+- **Blacksmithing** (`blacksmithing_standard`): Basic blacksmithing with thermic lances (10 charges)
+- **Metal Removal** (`metal_removal_standard`): Cut through metal and rebar (10 charges)
+- **Glassblowing** (`glassblowing_easy` and `glassblowing_standard`): Melt glass for glassblowing (5 charges)
 
 ## Balance
 

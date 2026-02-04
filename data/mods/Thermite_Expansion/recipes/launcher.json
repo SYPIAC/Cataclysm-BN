@@ -1,0 +1,21 @@
+[
+  {
+    "type": "recipe",
+    "result": "incendiary_hm_rocket",
+    "id_suffix": "thermite",
+    "category": "CC_AMMO",
+    "subcategory": "CSC_AMMO_LAUNCHER",
+    "skill_used": "fabrication",
+    "difficulty": 5,
+    "time": "20 m",
+    "book_learn": [ [ "manual_launcher", 6 ] ],
+    "qualities": [ { "id": "HAMMER", "level": 3 }, { "id": "SAW_M", "level": 1 } ],
+    "tools": [ [ [ "hotplate", 50 ], [ "toolset", 50 ] ] ],
+    "components": [
+      [ [ "pipe", 2 ] ],
+      [ [ "chem_thermite", 50 ] ],
+      [ [ "plastic_chunk", 5 ] ],
+      [ [ "tool_rocket_candy", 2 ], [ "chem_rocket_fuel", 10 ] ]
+    ]
+  }
+]
