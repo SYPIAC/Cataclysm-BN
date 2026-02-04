@@ -761,6 +761,26 @@
     "flags": [ "ALLOWS_REMOTE_USE" ]
   },
   {
+    "id": "thermic_lance",
+    "type": "TOOL",
+    "category": "tools_entry",
+    "name": { "str": "thermic lance", "str_pl": "thermic lances" },
+    "description": "A compact thermal cutting tool that burns thermite to cut through metal.  It shares the same form factor as an acetylene torch but feeds powdered thermite instead of gas.",
+    "weight": "1600 g",
+    "volume": "1 L",
+    "price": "200 USD",
+    "price_postapoc": "750 cent",
+    "material": [ "steel", "plastic" ],
+    "symbol": ";",
+    "color": "red",
+    "ammo": "thermite",
+    "max_charges": 50,
+    "charges_per_use": 2,
+    "use_action": "OXYTORCH",
+    "qualities": [ [ "WELD", 2 ] ],
+    "flags": [ "ALLOWS_REMOTE_USE" ]
+  },
+  {
     "id": "paint_brush",
     "type": "GENERIC",
     "category": "tools_workshop",

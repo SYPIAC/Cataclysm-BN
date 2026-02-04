@@ -911,7 +911,7 @@
     "weight": "10 g",
     "//": "Weight might not be accurate.",
     "bashing": 1,
-    "ammo_type": "components",
+    "ammo_type": "thermite",
     "container": "bag_canvas",
     "count": 50
   },
