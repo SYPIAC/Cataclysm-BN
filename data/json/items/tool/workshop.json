@@ -765,7 +765,7 @@
     "type": "TOOL",
     "category": "tools_entry",
     "name": { "str": "thermic lance", "str_pl": "thermic lances" },
-    "description": "A compact thermal cutting tool that burns thermite to cut through metal.  It shares the same form factor as an acetylene torch but feeds powdered thermite instead of gas.",
+    "description": "A compact thermal cutting tool that burns thermite to cut through metal.  It shares the same form factor as an acetylene torch but feeds powdered thermite instead of gas.  It's not precise enough for welding, only intended to melt metal.",
     "weight": "1600 g",
     "volume": "1 L",
     "price": "200 USD",
@@ -773,11 +773,11 @@
     "material": [ "steel", "plastic" ],
     "symbol": ";",
     "color": "red",
+    "looks_like": "oxy_torch",
     "ammo": "thermite",
-    "max_charges": 50,
-    "charges_per_use": 2,
+    "max_charges": 200,
+    "charges_per_use": 1,
     "use_action": "OXYTORCH",
-    "qualities": [ [ "WELD", 2 ] ],
     "flags": [ "ALLOWS_REMOTE_USE" ]
   },
   {
