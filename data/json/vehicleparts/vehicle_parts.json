@@ -665,7 +665,7 @@
     "epower": 100000,
     "fuel_type": "plut_cell",
     "item": "minireactor",
-    "location": "structure",
+    "location": "center",
     "requirements": {
       "install": { "skills": [ [ "mechanics", 6 ] ], "time": "60 m", "using": [ [ "welding_standard", 5 ] ] },
       "removal": { "skills": [ [ "mechanics", 6 ] ], "time": "30 m", "using": [ [ "vehicle_weld_removal", 1 ] ] },
