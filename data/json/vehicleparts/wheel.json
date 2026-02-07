@@ -352,6 +352,35 @@
     "flags": [ "WHEEL", "NEEDS_JACKING", "STABLE", "FOLDABLE", "STEERABLE", "SHOCK_RESISTANT" ]
   },
   {
+    "id": "wheel_omni",
+    "type": "vehicle_part",
+    "name": { "str": "omni wheels" },
+    "item": "omni_wheel",
+    "location": "under",
+    "looks_like": "wheel_caster",
+    "symbol": "o",
+    "broken_symbol": "x",
+    "color": "dark_gray",
+    "durability": 70,
+    "description": "A set of omni wheels, like the ones found under a police bot.  These can move in any direction, making them perfect for small foldable vehicles.",
+    "damage_modifier": 50,
+    "folded_volume": "2500 ml",
+    "breaks_into": [
+      { "item": "steel_lump", "prob": 50 },
+      { "item": "steel_chunk", "count": [ 1, 2 ] },
+      { "item": "scrap", "count": [ 1, 2 ] }
+    ],
+    "rolling_resistance": 1.62,
+    "wheel_type": "off-road",
+    "contact_area": 30,
+    "requirements": {
+      "install": { "skills": [ [ "mechanics", 0 ] ], "time": "15 m", "qualities": [ { "id": "WRENCH", "level": 1 } ] },
+      "removal": { "skills": [ [ "mechanics", 0 ] ], "time": "15 m", "qualities": [ { "id": "WRENCH", "level": 1 } ] },
+      "repair": { "skills": [ [ "mechanics", 2 ] ], "time": "15 m", "using": [ [ "adhesive", 1 ], [ "plastics", 1 ] ] }
+    },
+    "flags": [ "WHEEL", "NEEDS_JACKING", "STABLE", "FOLDABLE", "STEERABLE", "SHOCK_RESISTANT" ]
+  },
+  {
     "id": "wheel_skateboard",
     "type": "vehicle_part",
     "name": { "str": "skateboard wheels" },

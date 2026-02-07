@@ -161,6 +161,24 @@
     "width": 1
   },
   {
+    "id": "omni_wheel",
+    "category": "veh_parts",
+    "type": "WHEEL",
+    "name": { "str": "set of omni wheels", "str_pl": "sets of omni wheels" },
+    "description": "A set of omni wheels, like the ones found under a police bot.",
+    "weight": "2500 g",
+    "volume": "2500 ml",
+    "price": "1 kUSD",
+    "price_postapoc": "1 USD",
+    "bashing": 6,
+    "to_hit": -1,
+    "material": [ "steel", "plastic" ],
+    "symbol": "]",
+    "color": "dark_gray",
+    "diameter": 4,
+    "width": 2
+  },
+  {
     "id": "wheel_skateboard",
     "category": "veh_parts",
     "type": "WHEEL",
