@@ -432,6 +432,7 @@ bool vehicle::collision( std::vector<veh_collision> &colls,
         // Bash floors on the current one, but not on the one below.
         // EXCEPTION: Skip this check if vehicle is on/near a ramp
         // Ramps can be at current Z-level or target Z-level
+        add_msg( "COLLISION-DP: received dp=(%d,%d,%d)", dp.x, dp.y, dp.z );
         map &here = get_map();
         tripoint current_pos = global_pos3();
         tripoint dest_current_z = current_pos + tripoint( dp.xy(), 0 ); // XY destination at current Z
