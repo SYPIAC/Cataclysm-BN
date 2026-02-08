@@ -4,6 +4,22 @@ This directory contains Claude Code command skills for developing Cataclysm: Bri
 
 ## Available Skills
 
+### Workflow
+
+#### `daily-start`
+
+**For**: Starting daily development work
+
+**Use when**:
+- Beginning a new work session
+- Need to sync with main branch
+- Have leftover changes from previous session
+
+**Example**:
+```
+Start daily work routine
+```
+
 ### Lua Bindings
 
 ### 1. `add-lua-binding-simple`
