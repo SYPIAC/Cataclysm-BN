@@ -430,7 +430,13 @@ bool vehicle::collision( std::vector<veh_collision> &colls,
     if( dp.z == -1 && !bash_floor ) {
         // First check current level, then the one below if current had no collisions
         // Bash floors on the current one, but not on the one below.
-        if( collision( colls, tripoint_zero, just_detect, true ) ) {
+        // EXCEPTION: Skip this check if vehicle is on a ramp - it's supposed to pass through
+        map &here = get_map();
+        tripoint current_pos = global_pos3();
+        bool on_ramp = here.has_flag( TFLAG_RAMP_UP, current_pos ) ||
+                       here.has_flag( TFLAG_RAMP_DOWN, current_pos );
+        
+        if( !on_ramp && collision( colls, tripoint_zero, just_detect, true ) ) {
             return true;
         }
     }
