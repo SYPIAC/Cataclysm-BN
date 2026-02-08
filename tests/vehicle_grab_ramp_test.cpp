@@ -123,8 +123,9 @@ TEST_CASE( "grab_vehicle_across_zlevel_on_ramp", "[vehicle][grab][ramp]" )
     auto &player = get_avatar();
     auto &here = get_map();
     
-    // Place a cart on the ramp high section (z=1)
-    const tripoint cart_pos( 11, 5, 1 );
+    // Place a cart on pavement at z=1 (near the ramp, not on it)
+    // Using x=12 instead of x=11 to avoid placing on ramp tile itself
+    const tripoint cart_pos( 12, 5, 1 );
     auto *cart = here.add_vehicle( vproto_id( "shopping_cart" ), cart_pos, 0_degrees, 0, 0 );
     REQUIRE( cart != nullptr );
     
