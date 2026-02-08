@@ -813,6 +813,9 @@ class vehicle
 
         //Translate tile coordinates into mount coordinates
         point tripoint_to_mount( const tripoint &p ) const;
+        
+        // Z-level aware version: translate tile coordinates into mount coordinates with Z preserved
+        tripoint tripoint_to_mount_with_z( const tripoint &p ) const;
 
         // Seek a vehicle part which obstructs tile with given coordinates relative to vehicle position
         int part_at( point dp ) const;
@@ -1557,13 +1560,23 @@ class vehicle
 
         //Check if a movement is blocked, must be adjacent points
         bool allowed_move( point from, point to ) const;
+        
+        // Z-level aware version: Check if movement is blocked with Z-level support
+        bool allowed_move_with_z( const tripoint &from, const tripoint &to ) const;
 
         //Check if light is blocked, must be adjacent points
         bool allowed_light( point from, point to ) const;
+        
+        // Z-level aware version: Check if light is blocked with Z-level support
+        bool allowed_light_with_z( const tripoint &from, const tripoint &to ) const;
 
         //Checks if the conditional holds for tiles that can be skipped due to rotation
         bool check_rotated_intervening( point from, point to, bool( *check )( const vehicle *,
                                         point ) ) const;
+        
+        // Z-level aware version: Checks intervening tiles with Z-level support
+        bool check_rotated_intervening_with_z( const tripoint &from, const tripoint &to,
+                                               bool( *check )( const vehicle *, const tripoint & ) ) const;
 
         std::string disp_name() const;
 

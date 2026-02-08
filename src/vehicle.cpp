@@ -3492,6 +3492,17 @@ point vehicle::tripoint_to_mount( const tripoint &p ) const
     return result;
 }
 
+auto vehicle::tripoint_to_mount_with_z( const tripoint &p ) const -> tripoint
+{
+    auto translated = p - global_pos3();
+    
+    auto result = point{};
+    coord_translate_reverse( pivot_rotation[0], pivot_anchor[0], translated, result );
+    
+    // Preserve the Z-level in the result
+    return { result.x, result.y, translated.z };
+}
+
 int vehicle::angle_to_increment( units::angle dir )
 {
     int increment = ( std::lround( to_degrees( dir ) ) % 360 ) / 15;
@@ -3564,6 +3575,62 @@ bool vehicle::check_rotated_intervening( point from, point to,
     return false;
 }
 
+auto vehicle::check_rotated_intervening_with_z( const tripoint &from, const tripoint &to,
+        bool( *check )( const vehicle *, const tripoint & ) ) const -> bool
+{
+    // Calculate delta in 2D (X,Y) plane only for rotation check
+    auto delta_xy = point{ to.x - from.x, to.y - from.y };
+    
+    // For Z-level aware version, we need to handle cases where points are at different Z-levels
+    // If Z-levels differ, the movement pattern may appear incorrect in 2D
+    if( from.z != to.z ) {
+        // For adjacent tiles at different Z-levels (e.g., on ramps), allow the move
+        if( std::abs( delta_xy.x ) <= 1 && std::abs( delta_xy.y ) <= 1 ) {
+            return true;
+        }
+        // For non-adjacent tiles with Z-difference, it's likely a pathfinding issue
+        // Return false to prevent invalid moves
+        return false;
+    }
+    
+    // Same Z-level: use standard 2D logic
+    if( std::abs( delta_xy.x ) <= 1 && std::abs( delta_xy.y ) <= 1 ) {
+        return true;
+    }
+
+    if( !( ( std::abs( delta_xy.x ) == 2 && std::abs( delta_xy.y ) == 1 ) ||
+           ( std::abs( delta_xy.x ) == 1 && std::abs( delta_xy.y ) == 2 ) ) ) {
+        debugmsg( "Unexpected movement in rotated vehicle vector:%d,%d (z:%d to z:%d)",
+                  delta_xy.x, delta_xy.y, from.z, to.z );
+        return false;
+    }
+
+    // Check intervening tiles with Z-level preserved
+    if( std::abs( delta_xy.x ) == 2 ) {
+        auto t1 = tripoint{ from.x + delta_xy.x / 2, from.y + delta_xy.y, from.z };
+        if( check( this, t1 ) ) {
+            return true;
+        }
+
+        auto t2 = tripoint{ from.x + delta_xy.x / 2, from.y, from.z };
+        if( check( this, t2 ) ) {
+            return true;
+        }
+    } else {
+        auto t1 = tripoint{ from.x + delta_xy.x, from.y + delta_xy.y / 2, from.z };
+        if( check( this, t1 ) ) {
+            return true;
+        }
+
+        auto t2 = tripoint{ from.x, from.y + delta_xy.y / 2, from.z };
+        if( check( this, t2 ) ) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 bool vehicle::allowed_light( point from, point to ) const
 {
     return check_rotated_intervening( from, to, []( const vehicle * veh, point  p ) {
@@ -3571,10 +3638,26 @@ bool vehicle::allowed_light( point from, point to ) const
     } );
 }
 
+auto vehicle::allowed_light_with_z( const tripoint &from, const tripoint &to ) const -> bool
+{
+    return check_rotated_intervening_with_z( from, to, []( const vehicle * veh,
+    const tripoint & p ) {
+        return ( veh->opaque_at_position( p.xy() ) == -1 );
+    } );
+}
+
 bool vehicle::allowed_move( point from, point to ) const
 {
     return check_rotated_intervening( from, to, []( const vehicle * veh, point  p ) {
         return ( veh->obstacle_at_position( p ) == -1 );
+    } );
+}
+
+auto vehicle::allowed_move_with_z( const tripoint &from, const tripoint &to ) const -> bool
+{
+    return check_rotated_intervening_with_z( from, to, []( const vehicle * veh,
+    const tripoint & p ) {
+        return ( veh->obstacle_at_position( p.xy() ) == -1 );
     } );
 }
 

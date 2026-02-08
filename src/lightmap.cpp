@@ -210,15 +210,17 @@ bool map::build_vision_transparency_cache( const Character &player )
 
     if( player.movement_mode_is( CMM_CROUCH ) ) {
 
-        const auto check_vehicle_coverage = []( const vehicle * veh, point  p ) -> bool {
-            return veh->obstacle_at_position( p ) == -1 && ( veh->part_with_feature( p,  "AISLE", true ) != -1 || veh->part_with_feature( p,  "PROTRUSION", true ) != -1 );
+        const auto check_vehicle_coverage = []( const vehicle * veh, const tripoint & p ) -> bool {
+            return veh->obstacle_at_position( p.xy() ) == -1 &&
+                   ( veh->part_with_feature( p.xy(), "AISLE", true ) != -1 ||
+                     veh->part_with_feature( p.xy(), "PROTRUSION", true ) != -1 );
         };
 
         const optional_vpart_position player_vp = veh_at( p );
 
-        point player_mount;
+        tripoint player_mount;
         if( player_vp ) {
-            player_mount = player_vp->vehicle().tripoint_to_mount( p );
+            player_mount = player_vp->vehicle().tripoint_to_mount_with_z( p );
         }
 
         int i = 0;
@@ -234,18 +236,18 @@ bool map::build_vision_transparency_cache( const Character &player )
                                        adjacent ) != four_diagonal_offsets.end() ) {
                     const optional_vpart_position adjacent_vp = veh_at( p + adjacent );
 
-                    point adjacent_mount;
+                    tripoint adjacent_mount;
                     if( adjacent_vp ) {
-                        adjacent_mount = adjacent_vp->vehicle().tripoint_to_mount( p );
+                        adjacent_mount = adjacent_vp->vehicle().tripoint_to_mount_with_z( p );
                     }
 
                     if( ( player_vp &&
-                          !player_vp->vehicle().check_rotated_intervening( player_mount,
-                                  player_vp->vehicle().tripoint_to_mount( p + adjacent ),
+                          !player_vp->vehicle().check_rotated_intervening_with_z( player_mount,
+                                  player_vp->vehicle().tripoint_to_mount_with_z( p + adjacent ),
                                   check_vehicle_coverage ) )
                         || ( adjacent_vp && ( !player_vp ||  &( player_vp->vehicle() ) != &( adjacent_vp->vehicle() ) ) &&
-                             !adjacent_vp->vehicle().check_rotated_intervening( adjacent_vp->vehicle().tripoint_to_mount(
-                                         p ), adjacent_vp->vehicle().tripoint_to_mount( p + adjacent ),
+                             !adjacent_vp->vehicle().check_rotated_intervening_with_z( adjacent_vp->vehicle().tripoint_to_mount_with_z(
+                                         p ), adjacent_vp->vehicle().tripoint_to_mount_with_z( p + adjacent ),
                                      check_vehicle_coverage ) ) ) {
                         dirty = true;
                         vision_transparency_cache[ i ] = VISION_ADJUST_HIDDEN;
