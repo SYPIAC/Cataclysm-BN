@@ -9728,7 +9728,7 @@ bool game::walk_move( const tripoint &dest_loc, const bool via_ramp )
         pushing = dp ==  u.grab_point;
         pulling = dp == -u.grab_point;
     }
-    if( grabbed && dest_loc.z != u.posz() ) {
+    if( grabbed && dest_loc.z != u.posz() && !via_ramp ) {
         add_msg( m_warning, _( "You let go of the grabbed object." ) );
         grabbed = false;
         u.grab( OBJECT_NONE );
