@@ -320,13 +320,13 @@ std::vector<tripoint> map::route( const tripoint &f, const tripoint &t,
             int part = -1;
             const vehicle *veh = veh_at_internal( p, part );
             if( cur_veh &&
-                !cur_veh->allowed_move( cur_veh->tripoint_to_mount( cur ), cur_veh->tripoint_to_mount( p ) ) ) {
+                !cur_veh->allowed_move_with_z( cur, p ) ) {
                 //Trying to squeeze through a vehicle hole, skip this movement but don't close the tile as other paths may lead to it
                 continue;
             }
 
             if( veh && veh != cur_veh &&
-                !veh->allowed_move( veh->tripoint_to_mount( cur ), veh->tripoint_to_mount( p ) ) ) {
+                !veh->allowed_move_with_z( cur, p ) ) {
                 //Same as above but moving into rather than out of a vehicle
                 continue;
             }
