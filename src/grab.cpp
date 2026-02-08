@@ -136,11 +136,15 @@ bool game::grabbed_veh_move( const tripoint &dp )
     if( dp == prev_grab ) {
         // We are pushing in the direction of vehicle
         dp_veh = dp;
+        add_msg( m_debug, "DEBUG: Pushing vehicle, dp=(%d,%d,%d)", dp.x, dp.y, dp.z );
     } else if( std::abs( dp.x + dp_veh.x ) != 2 && std::abs( dp.y + dp_veh.y ) != 2 && dp.z == 0 ) {
         // Not actually moving the vehicle, don't do the checks
         // Exception: if dp.z != 0, we ARE moving (crossing Z-levels via ramp)
+        add_msg( m_debug, "DEBUG: Repositioning only, not moving vehicle" );
         u.grab_point = -( dp + dp_veh );
         return false;
+    } else if( dp.z != 0 ) {
+        add_msg( m_debug, "DEBUG: Z-movement detected! dp=(%d,%d,%d), proceeding with vehicle move", dp.x, dp.y, dp.z );
     } else if( ( dp.x == prev_grab.x || dp.y == prev_grab.y ) &&
                next_grab.x != 0 && next_grab.y != 0 ) {
         // Zig-zag (or semi-zig-zag) pull: player is diagonal to vehicle

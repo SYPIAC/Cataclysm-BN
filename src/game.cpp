@@ -9730,10 +9730,14 @@ bool game::walk_move( const tripoint &dest_loc, const bool via_ramp )
     }
     // DDA approach: Don't release grab on Z-level changes via ramps
     // Stairs will be handled by grabbed_move returning false
-    if( grabbed && dest_loc.z != u.posz() && !via_ramp ) {
-        add_msg( m_warning, _( "You let go of the grabbed object." ) );
-        grabbed = false;
-        u.grab( OBJECT_NONE );
+    if( grabbed && dest_loc.z != u.posz() ) {
+        if( !via_ramp ) {
+            add_msg( m_warning, _( "You let go of the grabbed object." ) );
+            grabbed = false;
+            u.grab( OBJECT_NONE );
+        } else {
+            add_msg( m_debug, "DEBUG: Z-level change via ramp, keeping grab (via_ramp=true)" );
+        }
     }
 
     // Now make sure we're actually holding something
@@ -10698,9 +10702,14 @@ bool game::grabbed_move( const tripoint &dp, const bool via_ramp )
     }
 
     // DDA approach: Allow Z-movement on ramps, block on stairs
-    if( dp.z != 0 && !via_ramp ) {
-        // No dragging stuff up/down stairs yet!
-        return false;
+    if( dp.z != 0 ) {
+        if( !via_ramp ) {
+            add_msg( m_debug, "DEBUG: Blocking Z-movement (stairs, via_ramp=false)" );
+            // No dragging stuff up/down stairs yet!
+            return false;
+        } else {
+            add_msg( m_debug, "DEBUG: Allowing Z-movement (ramp, via_ramp=true)" );
+        }
     }
 
     // vehicle: pulling, pushing, or moving around the grabbed object.
