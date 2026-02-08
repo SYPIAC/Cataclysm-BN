@@ -430,27 +430,33 @@ bool vehicle::collision( std::vector<veh_collision> &colls,
     if( dp.z == -1 && !bash_floor ) {
         // First check current level, then the one below if current had no collisions
         // Bash floors on the current one, but not on the one below.
-        // EXCEPTION: Skip this check if vehicle is on a ramp OR moving onto a ramp
-        // This handles both pushing (vehicle already on ramp) and pulling (vehicle moving onto ramp)
+        // EXCEPTION: Skip this check if vehicle is on/near a ramp
+        // Ramps can be at current Z-level or target Z-level
         map &here = get_map();
         tripoint current_pos = global_pos3();
-        tripoint dest_pos = current_pos + tripoint( dp.xy(), 0 ); // Destination on current Z-level
+        tripoint dest_current_z = current_pos + tripoint( dp.xy(), 0 ); // XY destination at current Z
+        tripoint dest_target_z = current_pos + dp; // Full destination at target Z
         
+        // Check all three positions for ramp flags
         bool on_ramp = here.has_flag( TFLAG_RAMP_UP, current_pos ) ||
                        here.has_flag( TFLAG_RAMP_DOWN, current_pos );
-        bool onto_ramp = here.has_flag( TFLAG_RAMP_UP, dest_pos ) ||
-                         here.has_flag( TFLAG_RAMP_DOWN, dest_pos );
+        bool onto_ramp_current_z = here.has_flag( TFLAG_RAMP_UP, dest_current_z ) ||
+                                   here.has_flag( TFLAG_RAMP_DOWN, dest_current_z );
+        bool onto_ramp_target_z = here.has_flag( TFLAG_RAMP_UP, dest_target_z ) ||
+                                  here.has_flag( TFLAG_RAMP_DOWN, dest_target_z );
         
-        add_msg( "COLLISION-CHECK: on_ramp=%d onto_ramp=%d current=(%d,%d,%d) dest=(%d,%d,%d)", 
-                 static_cast<int>(on_ramp), static_cast<int>(onto_ramp), 
+        add_msg( "COLLISION-CHECK: on_ramp=%d onto_curr_z=%d onto_targ_z=%d curr=(%d,%d,%d) dest_curr_z=(%d,%d,%d) dest_targ_z=(%d,%d,%d)", 
+                 static_cast<int>(on_ramp), static_cast<int>(onto_ramp_current_z), static_cast<int>(onto_ramp_target_z),
                  current_pos.x, current_pos.y, current_pos.z,
-                 dest_pos.x, dest_pos.y, dest_pos.z );
+                 dest_current_z.x, dest_current_z.y, dest_current_z.z,
+                 dest_target_z.x, dest_target_z.y, dest_target_z.z );
         
-        if( !on_ramp && !onto_ramp && collision( colls, tripoint_zero, just_detect, true ) ) {
+        if( !on_ramp && !onto_ramp_current_z && !onto_ramp_target_z && 
+            collision( colls, tripoint_zero, just_detect, true ) ) {
             add_msg( "COLLISION-CHECK: bash_floor collision detected, blocking move" );
             return true;
         }
-        add_msg( "COLLISION-CHECK: skipping bash_floor check (on/onto ramp)" );
+        add_msg( "COLLISION-CHECK: skipping bash_floor check (on/near ramp)" );
     }
 
     const bool vertical = bash_floor || dp.z != 0;
