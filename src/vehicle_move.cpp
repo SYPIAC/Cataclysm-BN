@@ -441,9 +441,15 @@ bool vehicle::collision( std::vector<veh_collision> &colls,
         bool onto_ramp = here.has_flag( TFLAG_RAMP_UP, dest_pos ) ||
                          here.has_flag( TFLAG_RAMP_DOWN, dest_pos );
         
+        add_msg( "COLLISION-CHECK: on_ramp=%d onto_ramp=%d current=(%d,%d,%d) dest=(%d,%d,%d)", 
+                 on_ramp, onto_ramp, current_pos.x, current_pos.y, current_pos.z,
+                 dest_pos.x, dest_pos.y, dest_pos.z );
+        
         if( !on_ramp && !onto_ramp && collision( colls, tripoint_zero, just_detect, true ) ) {
+            add_msg( "COLLISION-CHECK: bash_floor collision detected, blocking move" );
             return true;
         }
+        add_msg( "COLLISION-CHECK: skipping bash_floor check (on/onto ramp)" );
     }
 
     const bool vertical = bash_floor || dp.z != 0;
