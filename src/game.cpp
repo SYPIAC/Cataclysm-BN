@@ -9728,7 +9728,9 @@ bool game::walk_move( const tripoint &dest_loc, const bool via_ramp )
         pushing = dp ==  u.grab_point;
         pulling = dp == -u.grab_point;
     }
-    if( grabbed && dest_loc.z != u.posz() ) {
+    // DDA approach: Don't release grab on Z-level changes via ramps
+    // Stairs will be handled by grabbed_move returning false
+    if( grabbed && dest_loc.z != u.posz() && !via_ramp ) {
         add_msg( m_warning, _( "You let go of the grabbed object." ) );
         grabbed = false;
         u.grab( OBJECT_NONE );
@@ -9869,7 +9871,7 @@ bool game::walk_move( const tripoint &dest_loc, const bool via_ramp )
                                            via_ramp ) * multiplier;
     // only do this check if we can't noclip
     if( !character_funcs::can_noclip( u ) ) {
-        if( grabbed_move( dest_loc - u.pos() ) ) {
+        if( grabbed_move( dest_loc - u.pos(), via_ramp ) ) {
             return true;
         } else if( mcost == 0 ) {
             return false;
@@ -10689,13 +10691,14 @@ bool game::grabbed_furn_move( const tripoint &dp )
     return false;
 }
 
-bool game::grabbed_move( const tripoint &dp )
+bool game::grabbed_move( const tripoint &dp, const bool via_ramp )
 {
     if( u.get_grab_type() == OBJECT_NONE ) {
         return false;
     }
 
-    if( dp.z != 0 ) {
+    // DDA approach: Allow Z-movement on ramps, block on stairs
+    if( dp.z != 0 && !via_ramp ) {
         // No dragging stuff up/down stairs yet!
         return false;
     }
