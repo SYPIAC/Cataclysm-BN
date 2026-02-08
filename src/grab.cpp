@@ -136,8 +136,9 @@ bool game::grabbed_veh_move( const tripoint &dp )
     if( dp == prev_grab ) {
         // We are pushing in the direction of vehicle
         dp_veh = dp;
-    } else if( std::abs( dp.x + dp_veh.x ) != 2 && std::abs( dp.y + dp_veh.y ) != 2 ) {
+    } else if( std::abs( dp.x + dp_veh.x ) != 2 && std::abs( dp.y + dp_veh.y ) != 2 && dp.z == 0 ) {
         // Not actually moving the vehicle, don't do the checks
+        // Exception: if dp.z != 0, we ARE moving (crossing Z-levels via ramp)
         u.grab_point = -( dp + dp_veh );
         return false;
     } else if( ( dp.x == prev_grab.x || dp.y == prev_grab.y ) &&
