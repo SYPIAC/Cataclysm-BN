@@ -770,7 +770,7 @@ class game
         /** Check for dangerous stuff at dest_loc, return false if the player decides
         not to step there */
         // Handle pushing during move, returns true if it handled the move
-        bool grabbed_move( const tripoint &dp );
+        bool grabbed_move( const tripoint &dp, bool via_ramp = false );
         bool grabbed_veh_move( const tripoint &dp );
         bool grabbed_furn_move( const tripoint &dp );
 

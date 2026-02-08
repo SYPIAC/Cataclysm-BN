@@ -9869,7 +9869,7 @@ bool game::walk_move( const tripoint &dest_loc, const bool via_ramp )
                                            via_ramp ) * multiplier;
     // only do this check if we can't noclip
     if( !character_funcs::can_noclip( u ) ) {
-        if( grabbed_move( dest_loc - u.pos() ) ) {
+        if( grabbed_move( dest_loc - u.pos(), via_ramp ) ) {
             return true;
         } else if( mcost == 0 ) {
             return false;
@@ -10689,13 +10689,13 @@ bool game::grabbed_furn_move( const tripoint &dp )
     return false;
 }
 
-bool game::grabbed_move( const tripoint &dp )
+bool game::grabbed_move( const tripoint &dp, const bool via_ramp )
 {
     if( u.get_grab_type() == OBJECT_NONE ) {
         return false;
     }
 
-    if( dp.z != 0 ) {
+    if( dp.z != 0 && !via_ramp ) {
         // No dragging stuff up/down stairs yet!
         return false;
     }
