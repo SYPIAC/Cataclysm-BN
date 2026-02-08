@@ -9736,7 +9736,7 @@ bool game::walk_move( const tripoint &dest_loc, const bool via_ramp )
             grabbed = false;
             u.grab( OBJECT_NONE );
         } else {
-            add_msg( m_debug, "DEBUG: Z-level change via ramp, keeping grab (via_ramp=true)" );
+            add_msg( "RAMP: Z-level change via ramp, keeping grab (via_ramp=true)" );
         }
     }
 
@@ -10704,11 +10704,11 @@ bool game::grabbed_move( const tripoint &dp, const bool via_ramp )
     // DDA approach: Allow Z-movement on ramps, block on stairs
     if( dp.z != 0 ) {
         if( !via_ramp ) {
-            add_msg( m_debug, "DEBUG: Blocking Z-movement (stairs, via_ramp=false)" );
+            add_msg( "STAIRS: Blocking Z-movement (stairs, via_ramp=false)" );
             // No dragging stuff up/down stairs yet!
             return false;
         } else {
-            add_msg( m_debug, "DEBUG: Allowing Z-movement (ramp, via_ramp=true)" );
+            add_msg( "RAMP: Allowing Z-movement (ramp, via_ramp=true)" );
         }
     }
 
