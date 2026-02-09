@@ -9751,10 +9751,18 @@ bool game::walk_move( const tripoint &dest_loc, const bool via_ramp )
             grabbed = false;
         }
     } else if( grabbed && u.get_grab_type() == OBJECT_VEHICLE ) {
-        grabbed_vehicle = veh_pointer_or_null( m.veh_at( u.pos() + u.grab_point ) );
+        tripoint check_pos = u.pos() + u.grab_point;
+        add_msg( "VALIDATE: player=(%d,%d,%d) grab=(%d,%d,%d) check=(%d,%d,%d)", 
+                 u.pos().x, u.pos().y, u.pos().z,
+                 u.grab_point.x, u.grab_point.y, u.grab_point.z,
+                 check_pos.x, check_pos.y, check_pos.z );
+        grabbed_vehicle = veh_pointer_or_null( m.veh_at( check_pos ) );
         if( grabbed_vehicle == nullptr ) {
             // We were grabbing a vehicle that isn't there anymore
+            add_msg( "VALIDATE: Vehicle not found at check position - releasing grab" );
             grabbed = false;
+        } else {
+            add_msg( "VALIDATE: Vehicle found - grab maintained" );
         }
     } else if( grabbed ) {
         // We were grabbing something WEIRD, let's pretend we weren't
