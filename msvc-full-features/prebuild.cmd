@@ -9,9 +9,11 @@ for /F "tokens=*" %%i in ('git describe --tags --always --dirty --match "[0-9]*.
 if "%VERSION%"=="" (
 set VERSION=Please install `git` to generate VERSION, or set the variable manually
 )
-if "%BUILD_TIMESTAMP%"=="" (
-for /F "tokens=*" %%i in ('powershell -NoProfile -Command "Get-Date -Format yyyy-MM-dd-HHmm"') do set BUILD_TIMESTAMP=%%i
-)
+rem Disabled for incremental builds - uncomment to enable timestamps
+rem if "%BUILD_TIMESTAMP%"=="" (
+rem for /F "tokens=*" %%i in ('powershell -NoProfile -Command "Get-Date -Format yyyy-MM-dd-HHmm"') do set BUILD_TIMESTAMP=%%i
+rem )
+if "%BUILD_TIMESTAMP%"=="" set BUILD_TIMESTAMP=local-build
 set NEED_REGEN=0
 findstr /c:"#define VERSION \"%VERSION%\"" ..\src\version.h > NUL 2> NUL
 if %ERRORLEVEL% NEQ 0 set NEED_REGEN=1

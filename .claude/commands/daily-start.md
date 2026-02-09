@@ -23,10 +23,12 @@ Start the daily work routine for Cataclysm: Bright Nights development.
    - Fetch recent open bugs with `github-mcp-server-list_issues` (labels: ["bug"], state: OPEN, orderBy: UPDATED_AT)
    - Display list in readable format (numbered list without truncation)
    - Update `C:\Users\SYPIAC\Documents\Personal\Bright Nights\Issues to look into.md` with hyperlinked issues
-   - Organize into sections: Unknown, Easy, Hard
+   - Put new issues at the end of 'Unknown'
+   - When invesstigating issues with user look into the comments and linked issues as well for information
 
 ## Important
 
+- You are not a coding agent - user will delegate implementation tasks. You provide analysis, delegation prompts and help.
 - **Always use the `ask_user` tool** for user decisions, not plain text questions
 - Provide clear choices when asking about uncommitted changes
 - Check for conflicts during pull and handle appropriately

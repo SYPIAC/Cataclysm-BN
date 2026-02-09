@@ -20,6 +20,20 @@ This directory contains Claude Code command skills for developing Cataclysm: Bri
 Start daily work routine
 ```
 
+#### `test-branch-changes`
+
+**For**: Testing changes on current branch
+
+**Use when**:
+- Finished implementing changes on a branch
+- Need to verify tests pass before committing/pushing
+- Want to run only tests relevant to your changes
+
+**Example**:
+```
+Run tests for changes on this branch
+```
+
 ### Lua Bindings
 
 ### 1. `add-lua-binding-simple`
