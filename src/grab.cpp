@@ -133,9 +133,17 @@ bool game::grabbed_veh_move( const tripoint &dp )
 
     bool zigzag = false;
 
-    if( dp == prev_grab ) {
+    // For Z-transitions, compare XY components only (Z will differ)
+    const bool pushing = ( dp.xy() == prev_grab.xy() );
+    const bool pulling = ( dp.xy() == -prev_grab.xy() );
+
+    if( pushing ) {
         // We are pushing in the direction of vehicle
         dp_veh = dp;
+        // During Z-transitions, preserve grab_point (player and vehicle move together)
+        if( dp.z != 0 ) {
+            next_grab = prev_grab;  // Keep unchanged - both moved by same Z
+        }
         add_msg( "PUSH: Pushing vehicle, dp=(%d,%d,%d)", dp.x, dp.y, dp.z );
     } else if( std::abs( dp.x + dp_veh.x ) != 2 && std::abs( dp.y + dp_veh.y ) != 2 && dp.z == 0 ) {
         // Not actually moving the vehicle, don't do the checks
@@ -143,6 +151,17 @@ bool game::grabbed_veh_move( const tripoint &dp )
         add_msg( "REPOSITION: Not moving vehicle, just repositioning" );
         u.grab_point = -( dp + dp_veh );
         return false;
+    } else if( pulling ) {
+        // We are pulling the vehicle (moving away from it)
+        // During Z-transitions, preserve relative Z-offset (both player and vehicle move by same Z)
+        if( dp.z != 0 ) {
+            next_grab = tripoint( -dp.xy(), prev_grab.z );
+            add_msg( "PULL-Z: Pulling vehicle on ramp, dp=(%d,%d,%d), next_grab=(%d,%d,%d)", 
+                     dp.x, dp.y, dp.z, next_grab.x, next_grab.y, next_grab.z );
+        } else {
+            next_grab = -dp;
+            add_msg( "PULL: Pulling vehicle, dp=(%d,%d,%d)", dp.x, dp.y, dp.z );
+        }
     } else if( dp.z != 0 ) {
         add_msg( "Z-MOVE: Z-movement detected! dp=(%d,%d,%d), proceeding with vehicle move", dp.x, dp.y, dp.z );
     } else if( ( dp.x == prev_grab.x || dp.y == prev_grab.y ) &&
@@ -155,12 +174,12 @@ bool game::grabbed_veh_move( const tripoint &dp )
         next_grab = -dp_veh;
         zigzag = true;
     } else {
-        // We are pulling the vehicle
+        // Other movement (diagonal, sideways, etc.)
         if( dp.z != 0 ) {
-            // During Z-transitions, preserve relative Z-offset (both player and vehicle move by same Z)
-            next_grab = tripoint( -dp.xy(), prev_grab.z );
+            // During Z-transitions, preserve relative Z-offset
+            next_grab = tripoint( -( dp + dp_veh ).xy(), prev_grab.z );
         } else {
-            next_grab = -dp;
+            next_grab = -( dp + dp_veh );
         }
     }
 
