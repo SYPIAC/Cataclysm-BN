@@ -156,7 +156,12 @@ bool game::grabbed_veh_move( const tripoint &dp )
         zigzag = true;
     } else {
         // We are pulling the vehicle
-        next_grab = -dp;
+        if( dp.z != 0 ) {
+            // During Z-transitions, preserve relative Z-offset (both player and vehicle move by same Z)
+            next_grab = tripoint( -dp.xy(), prev_grab.z );
+        } else {
+            next_grab = -dp;
+        }
     }
 
     // Make sure the mass and pivot point are correct
