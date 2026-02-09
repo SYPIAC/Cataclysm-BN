@@ -1,3 +1,8 @@
+---
+description: Run tests for changes on this branch
+argument-hint: unit-tests
+---
+
 # Test Branch Changes
 
 Tests changes made on the current branch by building and running relevant tests.

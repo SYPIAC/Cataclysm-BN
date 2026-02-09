@@ -1,3 +1,8 @@
+---
+description: Start daily work on the repo
+argument-hint: daily-start
+---
+
 # Daily Work Routine Start
 
 Start the daily work routine for Cataclysm: Bright Nights development.
