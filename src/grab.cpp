@@ -245,6 +245,11 @@ bool game::grabbed_veh_move( const tripoint &dp )
         const tripoint expected_pos = u.pos() + dp + from;
         const tripoint actual_dir = expected_pos - new_part_pos;
 
+        add_msg( "GET-MOVE-DIR: expected=(%d,%d,%d) new_pos=(%d,%d,%d) actual_dir=(%d,%d,%d)", 
+                 expected_pos.x, expected_pos.y, expected_pos.z,
+                 new_part_pos.x, new_part_pos.y, new_part_pos.z,
+                 actual_dir.x, actual_dir.y, actual_dir.z );
+
         grabbed_vehicle->adjust_zlevel( 1, dp );
 
         // Set player location to illegal value so it can't collide with vehicle.
@@ -254,7 +259,11 @@ bool game::grabbed_veh_move( const tripoint &dp )
         // For Z-level transitions, use dp directly instead of actual_dir
         // actual_dir calculation loses X/Y components during Z-transitions
         const tripoint collision_dir = ( dp.z != 0 ) ? tripoint( dp.xy(), 0 ) : actual_dir;
+        add_msg( "GET-MOVE-DIR: collision_dir=(%d,%d,%d) checking collision", 
+                 collision_dir.x, collision_dir.y, collision_dir.z );
         const bool failed = grabbed_vehicle->collision( colls, collision_dir, true );
+        add_msg( "GET-MOVE-DIR: collision %s, colls.size()=%d", 
+                 failed ? "FAILED" : "passed", static_cast<int>(colls.size()) );
         u.setpos( player_prev );
         if( !colls.empty() ) {
             blocker_name = colls.front().target_name;
