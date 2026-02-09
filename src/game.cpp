@@ -10058,7 +10058,7 @@ bool game::walk_move( const tripoint &dest_loc, const bool via_ramp )
     }
 
     tripoint oldpos = u.pos();
-    point submap_shift = place_player( dest_loc );
+    point submap_shift = place_player( dest_loc, via_ramp );
     point ms_shift = sm_to_ms_copy( submap_shift );
     oldpos = oldpos - ms_shift;
 
@@ -10081,7 +10081,7 @@ bool game::walk_move( const tripoint &dest_loc, const bool via_ramp )
     return true;
 }
 
-point game::place_player( const tripoint &dest_loc )
+point game::place_player( const tripoint &dest_loc, const bool via_ramp )
 {
     const optional_vpart_position vp1 = m.veh_at( dest_loc );
     if( const std::optional<std::string> label = vp1.get_label() ) {
@@ -10206,7 +10206,7 @@ point game::place_player( const tripoint &dest_loc )
     // Move the player
     // Start with z-level, to make it less likely that old functions (2D ones) freak out
     if( m.has_zlevels() && dest_loc.z != get_levz() ) {
-        vertical_shift( dest_loc.z );
+        vertical_shift( dest_loc.z, via_ramp );
     }
 
     if( u.is_hauling() && ( !m.can_put_items( dest_loc ) ||
@@ -11774,7 +11774,7 @@ std::optional<tripoint> game::find_or_make_stairs( map &mp, const int z_after, b
     return stairs;
 }
 
-void game::vertical_shift( const int z_after )
+void game::vertical_shift( const int z_after, const bool via_ramp )
 {
     if( z_after < -OVERMAP_DEPTH || z_after > OVERMAP_HEIGHT ) {
         debugmsg( "Tried to get z-level %d outside allowed range of %d-%d",
@@ -11782,9 +11782,10 @@ void game::vertical_shift( const int z_after )
         return;
     }
 
-    // TODO: Implement dragging stuff up/down
-    u.grab( OBJECT_NONE );
-
+    if( !via_ramp ) {
+        // TODO: Implement dragging stuff up/down stairs
+        u.grab( OBJECT_NONE );
+    }
     scent.reset();
 
     u.setz( z_after );
