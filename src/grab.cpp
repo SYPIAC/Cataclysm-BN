@@ -179,13 +179,15 @@ bool game::grabbed_veh_move( const tripoint &dp )
         zigzag = true;
     } else {
         // Other movement (diagonal, sideways, etc.)
+        // Vehicle just reorients to face new direction without translating
         add_msg( "GRAB-UPDATE: OTHER movement, dp=(%d,%d,%d) prev_grab=(%d,%d,%d)", 
                  dp.x, dp.y, dp.z, prev_grab.x, prev_grab.y, prev_grab.z );
+        dp_veh = tripoint_zero;  // Just reorient, don't translate
         if( dp.z != 0 ) {
             // During Z-transitions, preserve relative Z-offset
-            next_grab = tripoint( -( dp + dp_veh ).xy(), prev_grab.z );
+            next_grab = tripoint( -dp.xy(), prev_grab.z );
         } else {
-            next_grab = -( dp + dp_veh );
+            next_grab = -dp;
         }
     }
 
