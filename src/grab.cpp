@@ -221,7 +221,10 @@ bool game::grabbed_veh_move( const tripoint &dp )
         const tripoint player_prev = u.pos();
         u.setpos( tripoint_zero );
         std::vector<veh_collision> colls;
-        const bool failed = grabbed_vehicle->collision( colls, actual_dir, true );
+        // For Z-level transitions, use dp directly instead of actual_dir
+        // actual_dir calculation loses X/Y components during Z-transitions
+        const tripoint collision_dir = ( dp.z != 0 ) ? tripoint( dp.xy(), 0 ) : actual_dir;
+        const bool failed = grabbed_vehicle->collision( colls, collision_dir, true );
         u.setpos( player_prev );
         if( !colls.empty() ) {
             blocker_name = colls.front().target_name;
