@@ -139,6 +139,8 @@ bool game::grabbed_veh_move( const tripoint &dp )
 
     if( pushing ) {
         // We are pushing in the direction of vehicle
+        add_msg( "GRAB-UPDATE: PUSHING detected, dp=(%d,%d,%d) prev_grab=(%d,%d,%d)", 
+                 dp.x, dp.y, dp.z, prev_grab.x, prev_grab.y, prev_grab.z );
         dp_veh = dp;
         // During Z-transitions, preserve grab_point (player and vehicle move together)
         if( dp.z != 0 ) {
@@ -153,6 +155,8 @@ bool game::grabbed_veh_move( const tripoint &dp )
         return false;
     } else if( pulling ) {
         // We are pulling the vehicle (moving away from it)
+        add_msg( "GRAB-UPDATE: PULLING detected, dp=(%d,%d,%d) prev_grab=(%d,%d,%d)", 
+                 dp.x, dp.y, dp.z, prev_grab.x, prev_grab.y, prev_grab.z );
         // During Z-transitions, preserve relative Z-offset (both player and vehicle move by same Z)
         if( dp.z != 0 ) {
             next_grab = tripoint( -dp.xy(), prev_grab.z );
@@ -175,6 +179,8 @@ bool game::grabbed_veh_move( const tripoint &dp )
         zigzag = true;
     } else {
         // Other movement (diagonal, sideways, etc.)
+        add_msg( "GRAB-UPDATE: OTHER movement, dp=(%d,%d,%d) prev_grab=(%d,%d,%d)", 
+                 dp.x, dp.y, dp.z, prev_grab.x, prev_grab.y, prev_grab.z );
         if( dp.z != 0 ) {
             // During Z-transitions, preserve relative Z-offset
             next_grab = tripoint( -( dp + dp_veh ).xy(), prev_grab.z );
@@ -271,6 +277,8 @@ bool game::grabbed_veh_move( const tripoint &dp )
         return true;
     }
 
+    add_msg( "GRAB-UPDATE: Setting grab_point from (%d,%d,%d) to (%d,%d,%d)", 
+             prev_grab.x, prev_grab.y, prev_grab.z, next_grab.x, next_grab.y, next_grab.z );
     u.grab_point = next_grab;
 
     m.displace_vehicle( *grabbed_vehicle, final_dp_veh );
