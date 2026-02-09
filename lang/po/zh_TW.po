@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: cataclysm-bn\n"
-"POT-Creation-Date: 2026-02-07 19:27+0000\n"
+"POT-Creation-Date: 2026-02-08 20:34+0000\n"
 "Last-Translator: Jeremy Wu <jeremy7986111@yahoo.com.tw>, 2026\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/bn-team/teams/113585/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -126646,337 +126646,121 @@ msgid ""
 msgstr "这个丧尸曾经是一个像你一样的幸存者，而且是一个相当优秀的幸存者。但是，他们没有一直幸运下去。现在他们仍穿着生前自制的重型盔甲和装备。"
 
 #: data/json/mutations/mutation_appearance.json
-msgid "Hair: black, crew-cut"
-msgstr "頭髮：黑色，平頭"
+msgid "Hair: black"
+msgstr ""
 
-#. ~ Description for {'str': 'Hair: black, crew-cut'}
+#. ~ Description for {'str': 'Hair: black'}
 #: data/json/mutations/mutation_appearance.json
-msgid "Crewcut black hair style."
-msgstr "平頭黑色髮型。"
+msgid "black hair"
+msgstr ""
 
 #: data/json/mutations/mutation_appearance.json
-msgid "Hair: black, mohawk"
-msgstr "頭髮：黑色，莫霍克髮型"
+msgid "Hair: brown"
+msgstr ""
 
-#. ~ Description for {'str': 'Hair: black, mohawk'}
+#. ~ Description for {'str': 'Hair: brown'}
 #: data/json/mutations/mutation_appearance.json
-msgid "Mohawk black hair style."
-msgstr "莫霍克黑色髮型"
+msgid "brown hair"
+msgstr ""
 
 #: data/json/mutations/mutation_appearance.json
-msgid "Hair: black, 'fro"
-msgstr "頭髮：黑色，爆炸頭"
+msgid "Hair: blond"
+msgstr ""
 
-#. ~ Description for {'str': "Hair: black, 'fro"}
+#. ~ Description for {'str': 'Hair: blond'}
 #: data/json/mutations/mutation_appearance.json
-msgid "'Fro black hair style."
-msgstr "爆炸頭黑色髮型"
+msgid "blond hair"
+msgstr ""
 
 #: data/json/mutations/mutation_appearance.json
-msgid "Hair: black, short"
-msgstr "頭髮：黑色，短髮"
+msgid "Hair: red"
+msgstr ""
 
-#. ~ Description for {'str': 'Hair: black, short'}
+#. ~ Description for {'str': 'Hair: red'}
 #: data/json/mutations/mutation_appearance.json
-msgid "Short black hair style"
-msgstr "短的黑色髮型"
+msgid "red hair"
+msgstr ""
 
 #: data/json/mutations/mutation_appearance.json
-msgid "Hair: black, medium-length"
-msgstr "頭髮：黑色，中長髮"
+msgid "Hair: gray"
+msgstr ""
 
-#. ~ Description for {'str': 'Hair: black, medium-length'}
+#. ~ Description for {'str': 'Hair: gray'}
 #: data/json/mutations/mutation_appearance.json
-msgid "Medium-length black hair style."
-msgstr "中長髮黑色髮型"
+msgid "gray hair"
+msgstr ""
 
 #: data/json/mutations/mutation_appearance.json
-msgid "Hair: black, long"
-msgstr "頭髮：黑色，長髮"
+msgid "Hair: white"
+msgstr ""
 
-#. ~ Description for {'str': 'Hair: black, long'}
+#. ~ Description for {'str': 'Hair: white'}
 #: data/json/mutations/mutation_appearance.json
-msgid "Long black hair style."
-msgstr "長的黑色髮型"
+msgid "white hair"
+msgstr ""
 
 #: data/json/mutations/mutation_appearance.json
-msgid "Hair: brown, crew-cut"
-msgstr "頭髮：棕色，平頭"
+msgid "Hair style: crew-cut"
+msgstr ""
 
-#. ~ Description for {'str': 'Hair: brown, crew-cut'}
+#. ~ Description for {'str': 'Hair style: crew-cut'}
 #: data/json/mutations/mutation_appearance.json
-msgid "Crewcut brown hair style."
-msgstr "平頭棕色髮型。"
+msgid "Crewcut hair"
+msgstr ""
 
 #: data/json/mutations/mutation_appearance.json
-msgid "Hair: brown, mohawk"
-msgstr "頭髮：棕色，莫霍克髮型"
+msgid "Hair style: mohawk"
+msgstr ""
 
-#. ~ Description for {'str': 'Hair: brown, mohawk'}
+#. ~ Description for {'str': 'Hair style: mohawk'}
 #: data/json/mutations/mutation_appearance.json
-msgid "Mohawk brown hair style."
-msgstr "莫霍克棕色髮型"
+msgid "Mohawk hair"
+msgstr ""
 
 #: data/json/mutations/mutation_appearance.json
-msgid "Hair: brown, 'fro"
-msgstr "頭髮：棕色，爆炸頭"
+msgid "Hair style: 'fro"
+msgstr ""
 
-#. ~ Description for {'str': "Hair: brown, 'fro"}
+#. ~ Description for {'str': "Hair style: 'fro"}
 #: data/json/mutations/mutation_appearance.json
-msgid "'Fro brown hair style."
-msgstr "爆炸頭棕色髮型"
+msgid "'Fro hair"
+msgstr ""
 
 #: data/json/mutations/mutation_appearance.json
-msgid "Hair: brown, short"
-msgstr "頭髮：棕色，短髮"
+msgid "Hair style: short"
+msgstr ""
 
-#. ~ Description for {'str': 'Hair: brown, short'}
+#. ~ Description for {'str': 'Hair style: short'}
 #: data/json/mutations/mutation_appearance.json
-msgid "Short brown hair style"
-msgstr "短的棕色髮型"
+msgid "Short hair"
+msgstr ""
 
 #: data/json/mutations/mutation_appearance.json
-msgid "Hair: brown, medium-length"
-msgstr "頭髮：棕色，中長髮"
+msgid "Hair style: medium-length"
+msgstr ""
 
-#. ~ Description for {'str': 'Hair: brown, medium-length'}
+#. ~ Description for {'str': 'Hair style: medium-length'}
 #: data/json/mutations/mutation_appearance.json
-msgid "Medium-length brown hair style."
-msgstr "中長髮棕色髮型"
+msgid "Medium-length hair"
+msgstr ""
 
 #: data/json/mutations/mutation_appearance.json
-msgid "Hair: brown, long"
-msgstr "頭髮：棕色，長髮"
+msgid "Hair style: long"
+msgstr ""
 
-#. ~ Description for {'str': 'Hair: brown, long'}
+#. ~ Description for {'str': 'Hair style: long'}
 #: data/json/mutations/mutation_appearance.json
-msgid "Long brown hair style."
-msgstr "長的棕色髮型"
+msgid "Long hair"
+msgstr ""
 
 #: data/json/mutations/mutation_appearance.json
-msgid "Hair: blond, crew-cut"
-msgstr "頭髮：金髮，平頭"
+msgid "Hair style: bald"
+msgstr ""
 
-#. ~ Description for {'str': 'Hair: blond, crew-cut'}
+#. ~ Description for {'str': 'Hair style: bald'}
 #: data/json/mutations/mutation_appearance.json
-msgid "Crewcut blond hair style."
-msgstr "平頭金髮髮型。"
-
-#: data/json/mutations/mutation_appearance.json
-msgid "Hair: blond, mohawk"
-msgstr "頭髮：金髮，莫霍克髮型"
-
-#. ~ Description for {'str': 'Hair: blond, mohawk'}
-#: data/json/mutations/mutation_appearance.json
-msgid "Mohawk blond hair style."
-msgstr "莫霍克金髮髮型"
-
-#: data/json/mutations/mutation_appearance.json
-msgid "Hair: blond, 'fro"
-msgstr "頭髮：金髮，爆炸頭"
-
-#. ~ Description for {'str': "Hair: blond, 'fro"}
-#: data/json/mutations/mutation_appearance.json
-msgid "'Fro blond hair style."
-msgstr "爆炸頭金髮髮型"
-
-#: data/json/mutations/mutation_appearance.json
-msgid "Hair: blond, short"
-msgstr "頭髮：金髮，短髮"
-
-#. ~ Description for {'str': 'Hair: blond, short'}
-#: data/json/mutations/mutation_appearance.json
-msgid "Short blond hair style"
-msgstr "短的金髮髮型"
-
-#: data/json/mutations/mutation_appearance.json
-msgid "Hair: blond, medium-length"
-msgstr "頭髮：金髮，中長髮"
-
-#. ~ Description for {'str': 'Hair: blond, medium-length'}
-#: data/json/mutations/mutation_appearance.json
-msgid "Medium-length blond hair style."
-msgstr "中長髮金髮髮型"
-
-#: data/json/mutations/mutation_appearance.json
-msgid "Hair: blond, long"
-msgstr "頭髮：金髮，長髮"
-
-#. ~ Description for {'str': 'Hair: blond, long'}
-#: data/json/mutations/mutation_appearance.json
-msgid "Long blond hair style."
-msgstr "長的金髮髮型"
-
-#: data/json/mutations/mutation_appearance.json
-msgid "Hair: red, crew-cut"
-msgstr "頭髮：紅色，平頭"
-
-#. ~ Description for {'str': 'Hair: red, crew-cut'}
-#: data/json/mutations/mutation_appearance.json
-msgid "Crewcut red hair style."
-msgstr "平頭紅色髮型。"
-
-#: data/json/mutations/mutation_appearance.json
-msgid "Hair: red, mohawk"
-msgstr "頭髮：紅色，莫霍克髮型"
-
-#. ~ Description for {'str': 'Hair: red, mohawk'}
-#: data/json/mutations/mutation_appearance.json
-msgid "Mohawk red hair style."
-msgstr "莫霍克紅色髮型"
-
-#: data/json/mutations/mutation_appearance.json
-msgid "Hair: red, 'fro"
-msgstr "頭髮：紅色，爆炸頭"
-
-#. ~ Description for {'str': "Hair: red, 'fro"}
-#: data/json/mutations/mutation_appearance.json
-msgid "'Fro red hair style."
-msgstr "爆炸頭紅色髮型"
-
-#: data/json/mutations/mutation_appearance.json
-msgid "Hair: red, short"
-msgstr "頭髮：紅色，短髮"
-
-#. ~ Description for {'str': 'Hair: red, short'}
-#: data/json/mutations/mutation_appearance.json
-msgid "Short red hair style"
-msgstr "短的紅色髮型"
-
-#: data/json/mutations/mutation_appearance.json
-msgid "Hair: red, medium-length"
-msgstr "頭髮：紅色，中長髮"
-
-#. ~ Description for {'str': 'Hair: red, medium-length'}
-#: data/json/mutations/mutation_appearance.json
-msgid "Medium-length red hair style."
-msgstr "中長髮紅色髮型"
-
-#: data/json/mutations/mutation_appearance.json
-msgid "Hair: red, long"
-msgstr "頭髮：紅色，長髮"
-
-#. ~ Description for {'str': 'Hair: red, long'}
-#: data/json/mutations/mutation_appearance.json
-msgid "Long red hair style."
-msgstr "長的紅色髮型"
-
-#: data/json/mutations/mutation_appearance.json
-msgid "Hair: gray, crew-cut"
-msgstr "頭髮：灰色，平頭"
-
-#. ~ Description for {'str': 'Hair: gray, crew-cut'}
-#: data/json/mutations/mutation_appearance.json
-msgid "Crewcut gray hair style."
-msgstr "平頭灰色髮型。"
-
-#: data/json/mutations/mutation_appearance.json
-msgid "Hair: gray, mohawk"
-msgstr "頭髮：灰色，莫霍克髮型"
-
-#. ~ Description for {'str': 'Hair: gray, mohawk'}
-#: data/json/mutations/mutation_appearance.json
-msgid "Mohawk gray hair style."
-msgstr "莫霍克灰色髮型"
-
-#: data/json/mutations/mutation_appearance.json
-msgid "Hair: gray, 'fro"
-msgstr "頭髮：灰色，爆炸頭"
-
-#. ~ Description for {'str': "Hair: gray, 'fro"}
-#: data/json/mutations/mutation_appearance.json
-msgid "'Fro gray hair style."
-msgstr "爆炸頭灰色髮型"
-
-#: data/json/mutations/mutation_appearance.json
-msgid "Hair: gray, short"
-msgstr "頭髮：灰色，短髮"
-
-#. ~ Description for {'str': 'Hair: gray, short'}
-#: data/json/mutations/mutation_appearance.json
-msgid "Short gray hair style"
-msgstr "短的灰色髮型"
-
-#: data/json/mutations/mutation_appearance.json
-msgid "Hair: gray, medium-length"
-msgstr "頭髮：灰色，中長髮"
-
-#. ~ Description for {'str': 'Hair: gray, medium-length'}
-#: data/json/mutations/mutation_appearance.json
-msgid "Medium-length gray hair style."
-msgstr "中長髮灰色髮型"
-
-#: data/json/mutations/mutation_appearance.json
-msgid "Hair: gray, long"
-msgstr "頭髮：灰色，長髮"
-
-#. ~ Description for {'str': 'Hair: gray, long'}
-#: data/json/mutations/mutation_appearance.json
-msgid "Long gray hair style."
-msgstr "長的灰色髮型"
-
-#: data/json/mutations/mutation_appearance.json
-msgid "Hair: white, crew-cut"
-msgstr "頭髮：白色，平頭"
-
-#. ~ Description for {'str': 'Hair: white, crew-cut'}
-#: data/json/mutations/mutation_appearance.json
-msgid "Crewcut white hair style."
-msgstr "平頭白色髮型。"
-
-#: data/json/mutations/mutation_appearance.json
-msgid "Hair: white, mohawk"
-msgstr "頭髮：白色，莫霍克髮型"
-
-#. ~ Description for {'str': 'Hair: white, mohawk'}
-#: data/json/mutations/mutation_appearance.json
-msgid "Mohawk white hair style."
-msgstr "莫霍克白色髮型"
-
-#: data/json/mutations/mutation_appearance.json
-msgid "Hair: white, 'fro"
-msgstr "頭髮：白色，爆炸頭"
-
-#. ~ Description for {'str': "Hair: white, 'fro"}
-#: data/json/mutations/mutation_appearance.json
-msgid "'Fro white hair style."
-msgstr "爆炸頭白色髮型"
-
-#: data/json/mutations/mutation_appearance.json
-msgid "Hair: white, short"
-msgstr "頭髮：白色，短髮"
-
-#. ~ Description for {'str': 'Hair: white, short'}
-#: data/json/mutations/mutation_appearance.json
-msgid "Short white hair style"
-msgstr "短的白色髮型"
-
-#: data/json/mutations/mutation_appearance.json
-msgid "Hair: white, medium-length"
-msgstr "頭髮：白色，中長髮"
-
-#. ~ Description for {'str': 'Hair: white, medium-length'}
-#: data/json/mutations/mutation_appearance.json
-msgid "Medium-length white hair style."
-msgstr "中長髮白色髮型"
-
-#: data/json/mutations/mutation_appearance.json
-msgid "Hair: white, long"
-msgstr "頭髮：白色，長髮"
-
-#. ~ Description for {'str': 'Hair: white, long'}
-#: data/json/mutations/mutation_appearance.json
-msgid "Long white hair style."
-msgstr "長的白色髮型"
-
-#: data/json/mutations/mutation_appearance.json
-msgid "Hair: none"
-msgstr "頭髮：無"
-
-#. ~ Description for {'str': 'Hair: none'}
-#: data/json/mutations/mutation_appearance.json
-msgid "You are bald."
-msgstr "你是光頭。"
+msgid "bald"
+msgstr ""
 
 #: data/json/mutations/mutation_appearance.json
 msgid "Eye color: blue"
@@ -192676,6 +192460,89 @@ msgstr "\"还没死够吗！\""
 msgid "an unrestrained warcry."
 msgstr "一声肆意的战吼。"
 
+#: data/mods/Color_Expansion/modinfo.json
+msgid "Color Expansion"
+msgstr ""
+
+#. ~ Description for Color Expansion
+#: data/mods/Color_Expansion/modinfo.json
+msgid ""
+"Changes how color based mutations are rendered, and adds more of them. Also "
+"lets women have beards."
+msgstr ""
+
+#: data/mods/Color_Expansion/mutations.json
+msgid "Eye color: pink"
+msgstr ""
+
+#. ~ Description for {'str': 'Eye color: pink'}
+#: data/mods/Color_Expansion/mutations.json
+msgid "You have oddly pink eyes."
+msgstr ""
+
+#: data/mods/Color_Expansion/mutations.json
+msgid "Eye color: white"
+msgstr ""
+
+#. ~ Description for {'str': 'Eye color: white'}
+#: data/mods/Color_Expansion/mutations.json
+msgid "You have no visible irises."
+msgstr ""
+
+#: data/mods/Color_Expansion/mutations.json
+msgid "Eye color: black"
+msgstr ""
+
+#. ~ Description for {'str': 'Eye color: black'}
+#: data/mods/Color_Expansion/mutations.json
+msgid "Your eyes are disconcertingly pitch black."
+msgstr ""
+
+#: data/mods/Color_Expansion/mutations.json
+msgid "Hair: pink"
+msgstr ""
+
+#. ~ Description for {'str': 'Hair: pink'}
+#: data/mods/Color_Expansion/mutations.json
+msgid "pink hair"
+msgstr ""
+
+#: data/mods/Color_Expansion/mutations.json
+msgid "Hair: blue"
+msgstr ""
+
+#. ~ Description for {'str': 'Hair: blue'}
+#: data/mods/Color_Expansion/mutations.json
+msgid "blue hair"
+msgstr ""
+
+#: data/mods/Color_Expansion/mutations.json
+msgid "Hair: green"
+msgstr ""
+
+#. ~ Description for {'str': 'Hair: green'}
+#: data/mods/Color_Expansion/mutations.json
+msgid "green hair"
+msgstr ""
+
+#: data/mods/Color_Expansion/mutations.json
+msgid "Hair: purple"
+msgstr ""
+
+#. ~ Description for {'str': 'Hair: purple'}
+#: data/mods/Color_Expansion/mutations.json
+msgid "purple hair"
+msgstr ""
+
+#: data/mods/Color_Expansion/mutations.json
+msgid "Hair: cyan"
+msgstr ""
+
+#. ~ Description for {'str': 'Hair: cyan'}
+#: data/mods/Color_Expansion/mutations.json
+msgid "cyan hair"
+msgstr ""
+
 #: data/mods/CrazyCataclysm/crazy_aperturepotato.json
 msgid "companion potato"
 msgid_plural "companion potatoes"
@@ -225140,16 +225007,16 @@ msgid "Try"
 msgstr "未設定"
 
 #: src/action.cpp
+msgid "Look"
+msgstr "查看"
+
+#: src/action.cpp
 msgid "Interact"
 msgstr "互動"
 
 #: src/action.cpp src/advanced_inv.cpp src/game_inventory.cpp
 msgid "Inventory"
 msgstr "物品欄"
-
-#: src/action.cpp
-msgid "Look"
-msgstr "查看"
 
 #: src/action.cpp src/game.cpp
 msgid "Combat"
@@ -261568,6 +261435,10 @@ msgstr "你的 %s 劇情不允許你移除這個特質。"
 #, c-format
 msgid "Your profession of %s prevents you from removing this trait."
 msgstr "你的 %s 職業不允許你移除這個特質。"
+
+#: src/newcharacter.cpp
+msgid "You must have a trait of this type."
+msgstr ""
 
 #: src/newcharacter.cpp
 msgid "You already picked a conflicting trait!"
