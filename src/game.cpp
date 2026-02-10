@@ -9779,10 +9779,16 @@ bool game::walk_move( const tripoint &dest_loc, const bool via_ramp )
         pushing = dp ==  u.grab_point;
         pulling = dp == -u.grab_point;
     }
+    // DDA approach: Don't release grab on Z-level changes via ramps
+    // Stairs will be handled by grabbed_move returning false
     if( grabbed && dest_loc.z != u.posz() ) {
-        add_msg( m_warning, _( "You let go of the grabbed object." ) );
-        grabbed = false;
-        u.grab( OBJECT_NONE );
+        if( !via_ramp ) {
+            add_msg( m_warning, _( "You let go of the grabbed object." ) );
+            grabbed = false;
+            u.grab( OBJECT_NONE );
+        } else {
+            add_msg( "RAMP: Z-level change via ramp, keeping grab (via_ramp=true)" );
+        }
     }
 
     // Now make sure we're actually holding something
@@ -9796,10 +9802,18 @@ bool game::walk_move( const tripoint &dest_loc, const bool via_ramp )
             grabbed = false;
         }
     } else if( grabbed && u.get_grab_type() == OBJECT_VEHICLE ) {
-        grabbed_vehicle = veh_pointer_or_null( m.veh_at( u.pos() + u.grab_point ) );
+        tripoint check_pos = u.pos() + u.grab_point;
+        add_msg( "VALIDATE: player=(%d,%d,%d) grab=(%d,%d,%d) check=(%d,%d,%d)", 
+                 u.pos().x, u.pos().y, u.pos().z,
+                 u.grab_point.x, u.grab_point.y, u.grab_point.z,
+                 check_pos.x, check_pos.y, check_pos.z );
+        grabbed_vehicle = veh_pointer_or_null( m.veh_at( check_pos ) );
         if( grabbed_vehicle == nullptr ) {
             // We were grabbing a vehicle that isn't there anymore
+            add_msg( "VALIDATE: Vehicle not found at check position - releasing grab" );
             grabbed = false;
+        } else {
+            add_msg( "VALIDATE: Vehicle found - grab maintained" );
         }
     } else if( grabbed ) {
         // We were grabbing something WEIRD, let's pretend we weren't
@@ -9920,7 +9934,7 @@ bool game::walk_move( const tripoint &dest_loc, const bool via_ramp )
                                            via_ramp ) * multiplier;
     // only do this check if we can't noclip
     if( !character_funcs::can_noclip( u ) ) {
-        if( grabbed_move( dest_loc - u.pos() ) ) {
+        if( grabbed_move( dest_loc - u.pos(), via_ramp ) ) {
             return true;
         } else if( mcost == 0 ) {
             return false;
@@ -10095,7 +10109,7 @@ bool game::walk_move( const tripoint &dest_loc, const bool via_ramp )
     }
 
     tripoint oldpos = u.pos();
-    point submap_shift = place_player( dest_loc );
+    point submap_shift = place_player( dest_loc, via_ramp );
     point ms_shift = sm_to_ms_copy( submap_shift );
     oldpos = oldpos - ms_shift;
 
@@ -10118,7 +10132,7 @@ bool game::walk_move( const tripoint &dest_loc, const bool via_ramp )
     return true;
 }
 
-point game::place_player( const tripoint &dest_loc )
+point game::place_player( const tripoint &dest_loc, const bool via_ramp )
 {
     const optional_vpart_position vp1 = m.veh_at( dest_loc );
     if( const std::optional<std::string> label = vp1.get_label() ) {
@@ -10243,7 +10257,7 @@ point game::place_player( const tripoint &dest_loc )
     // Move the player
     // Start with z-level, to make it less likely that old functions (2D ones) freak out
     if( m.has_zlevels() && dest_loc.z != get_levz() ) {
-        vertical_shift( dest_loc.z );
+        vertical_shift( dest_loc.z, via_ramp );
     }
 
     if( u.is_hauling() && ( !m.can_put_items( dest_loc ) ||
@@ -10740,15 +10754,21 @@ bool game::grabbed_furn_move( const tripoint &dp )
     return false;
 }
 
-bool game::grabbed_move( const tripoint &dp )
+bool game::grabbed_move( const tripoint &dp, const bool via_ramp )
 {
     if( u.get_grab_type() == OBJECT_NONE ) {
         return false;
     }
 
+    // DDA approach: Allow Z-movement on ramps, block on stairs
     if( dp.z != 0 ) {
-        // No dragging stuff up/down stairs yet!
-        return false;
+        if( !via_ramp ) {
+            add_msg( "STAIRS: Blocking Z-movement (stairs, via_ramp=false)" );
+            // No dragging stuff up/down stairs yet!
+            return false;
+        } else {
+            add_msg( "RAMP: Allowing Z-movement (ramp, via_ramp=true)" );
+        }
     }
 
     // vehicle: pulling, pushing, or moving around the grabbed object.
@@ -11805,7 +11825,7 @@ std::optional<tripoint> game::find_or_make_stairs( map &mp, const int z_after, b
     return stairs;
 }
 
-void game::vertical_shift( const int z_after )
+void game::vertical_shift( const int z_after, const bool via_ramp )
 {
     if( z_after < -OVERMAP_DEPTH || z_after > OVERMAP_HEIGHT ) {
         debugmsg( "Tried to get z-level %d outside allowed range of %d-%d",
@@ -11813,9 +11833,10 @@ void game::vertical_shift( const int z_after )
         return;
     }
 
-    // TODO: Implement dragging stuff up/down
-    u.grab( OBJECT_NONE );
-
+    if( !via_ramp ) {
+        // TODO: Implement dragging stuff up/down stairs
+        u.grab( OBJECT_NONE );
+    }
     scent.reset();
 
     u.setz( z_after );

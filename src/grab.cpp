@@ -133,13 +133,41 @@ bool game::grabbed_veh_move( const tripoint &dp )
 
     bool zigzag = false;
 
-    if( dp == prev_grab ) {
+    // For Z-transitions, compare XY components only (Z will differ)
+    const bool pushing = ( dp.xy() == prev_grab.xy() );
+    const bool pulling = ( dp.xy() == -prev_grab.xy() );
+
+    if( pushing ) {
         // We are pushing in the direction of vehicle
+        add_msg( "GRAB-UPDATE: PUSHING detected, dp=(%d,%d,%d) prev_grab=(%d,%d,%d)", 
+                 dp.x, dp.y, dp.z, prev_grab.x, prev_grab.y, prev_grab.z );
         dp_veh = dp;
-    } else if( std::abs( dp.x + dp_veh.x ) != 2 && std::abs( dp.y + dp_veh.y ) != 2 ) {
+        // During Z-transitions, preserve grab_point (player and vehicle move together)
+        if( dp.z != 0 ) {
+            next_grab = prev_grab;  // Keep unchanged - both moved by same Z
+        }
+        add_msg( "PUSH: Pushing vehicle, dp=(%d,%d,%d)", dp.x, dp.y, dp.z );
+    } else if( std::abs( dp.x + dp_veh.x ) != 2 && std::abs( dp.y + dp_veh.y ) != 2 && dp.z == 0 ) {
         // Not actually moving the vehicle, don't do the checks
+        // Exception: if dp.z != 0, we ARE moving (crossing Z-levels via ramp)
+        add_msg( "REPOSITION: Not moving vehicle, just repositioning" );
         u.grab_point = -( dp + dp_veh );
         return false;
+    } else if( pulling ) {
+        // We are pulling the vehicle (moving away from it)
+        add_msg( "GRAB-UPDATE: PULLING detected, dp=(%d,%d,%d) prev_grab=(%d,%d,%d)", 
+                 dp.x, dp.y, dp.z, prev_grab.x, prev_grab.y, prev_grab.z );
+        // During Z-transitions, preserve relative Z-offset (both player and vehicle move by same Z)
+        if( dp.z != 0 ) {
+            next_grab = tripoint( -dp.xy(), prev_grab.z );
+            add_msg( "PULL-Z: Pulling vehicle on ramp, dp=(%d,%d,%d), next_grab=(%d,%d,%d)", 
+                     dp.x, dp.y, dp.z, next_grab.x, next_grab.y, next_grab.z );
+        } else {
+            next_grab = -dp;
+            add_msg( "PULL: Pulling vehicle, dp=(%d,%d,%d)", dp.x, dp.y, dp.z );
+        }
+    } else if( dp.z != 0 ) {
+        add_msg( "Z-MOVE: Z-movement detected! dp=(%d,%d,%d), proceeding with vehicle move", dp.x, dp.y, dp.z );
     } else if( ( dp.x == prev_grab.x || dp.y == prev_grab.y ) &&
                next_grab.x != 0 && next_grab.y != 0 ) {
         // Zig-zag (or semi-zig-zag) pull: player is diagonal to vehicle
@@ -150,8 +178,17 @@ bool game::grabbed_veh_move( const tripoint &dp )
         next_grab = -dp_veh;
         zigzag = true;
     } else {
-        // We are pulling the vehicle
-        next_grab = -dp;
+        // Other movement (diagonal, sideways, etc.)
+        // Vehicle just reorients to face new direction without translating
+        add_msg( "GRAB-UPDATE: OTHER movement, dp=(%d,%d,%d) prev_grab=(%d,%d,%d)", 
+                 dp.x, dp.y, dp.z, prev_grab.x, prev_grab.y, prev_grab.z );
+        dp_veh = tripoint_zero;  // Just reorient, don't translate
+        if( dp.z != 0 ) {
+            // During Z-transitions, preserve relative Z-offset
+            next_grab = tripoint( -dp.xy(), prev_grab.z );
+        } else {
+            next_grab = -dp;
+        }
     }
 
     // Make sure the mass and pivot point are correct
@@ -210,13 +247,25 @@ bool game::grabbed_veh_move( const tripoint &dp )
         const tripoint expected_pos = u.pos() + dp + from;
         const tripoint actual_dir = expected_pos - new_part_pos;
 
+        add_msg( "GET-MOVE-DIR: expected=(%d,%d,%d) new_pos=(%d,%d,%d) actual_dir=(%d,%d,%d)", 
+                 expected_pos.x, expected_pos.y, expected_pos.z,
+                 new_part_pos.x, new_part_pos.y, new_part_pos.z,
+                 actual_dir.x, actual_dir.y, actual_dir.z );
+
         grabbed_vehicle->adjust_zlevel( 1, dp );
 
         // Set player location to illegal value so it can't collide with vehicle.
         const tripoint player_prev = u.pos();
         u.setpos( tripoint_zero );
         std::vector<veh_collision> colls;
-        const bool failed = grabbed_vehicle->collision( colls, actual_dir, true );
+        // For Z-level transitions, use dp directly instead of actual_dir
+        // actual_dir calculation loses X/Y components during Z-transitions
+        const tripoint collision_dir = ( dp.z != 0 ) ? tripoint( dp.xy(), 0 ) : actual_dir;
+        add_msg( "GET-MOVE-DIR: collision_dir=(%d,%d,%d) checking collision", 
+                 collision_dir.x, collision_dir.y, collision_dir.z );
+        const bool failed = grabbed_vehicle->collision( colls, collision_dir, true );
+        add_msg( "GET-MOVE-DIR: collision %s, colls.size()=%d", 
+                 failed ? "FAILED" : "passed", static_cast<int>(colls.size()) );
         u.setpos( player_prev );
         if( !colls.empty() ) {
             blocker_name = colls.front().target_name;
@@ -239,12 +288,17 @@ bool game::grabbed_veh_move( const tripoint &dp )
         return true;
     }
 
+    add_msg( "GRAB-UPDATE: Setting grab_point from (%d,%d,%d) to (%d,%d,%d)", 
+             prev_grab.x, prev_grab.y, prev_grab.z, next_grab.x, next_grab.y, next_grab.z );
     u.grab_point = next_grab;
 
     m.displace_vehicle( *grabbed_vehicle, final_dp_veh );
 
     if( grabbed_vehicle ) {
-        grabbed_vehicle->shift_zlevel();
+        // NOTE: Don't call shift_zlevel() here! It would auto-detect ramps and shift the vehicle
+        // a second time, causing teleporting and collision issues. The adjust_zlevel() call at
+        // line 218 already handles Z-transitions correctly during grabbed movement.
+        // grabbed_vehicle->shift_zlevel();  // REMOVED - causes double-shifting on ramps
         grabbed_vehicle->check_falling_or_floating();
     } else {
         debugmsg( "Grabbed vehicle disappeared" );
