@@ -122,20 +122,6 @@
   },
   {
     "type": "GENERIC",
-    "id": "omni_wheel",
-    "name": { "str": "set of omni wheels", "str_pl": "sets of omni wheels" },
-    "description": "A set of omni wheels, like the ones found under a police bot.",
-    "symbol": "o",
-    "color": "light_gray",
-    "weight": "10000 g",
-    "volume": "10 L",
-    "price": "1 kUSD",
-    "price_postapoc": "1 USD",
-    "material": "steel",
-    "category": "spare_parts"
-  },
-  {
-    "type": "GENERIC",
     "id": "quad_rotors",
     "name": { "str": "set of rotors", "str_pl": "sets of rotors" },
     "description": "A set of rotors able to lift a small drone.",
